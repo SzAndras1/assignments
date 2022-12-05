@@ -1,23 +1,39 @@
 import random
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
     def __str__(self):
-        return f'x:{self.x},y:{self.y}'
+        return f'(x:{self.x},y:{self.y})'
 
-def plot_points(obj):
+class Courier:
+    def __init__(self,id,points=0,distance=0):
+        self.id = id
+        self.points = [Point(456,320)]
+        self.distance = distance
+    def __str__(self):
+        return f'id: {self.id}, points:[{self.points}]'
+    #def __repr__(self):
+    #    return repr(self.points)
+
+def plot_points(courier):
     x = []
     y = []
-    for i in range(len(obj)):
-        if(obj[i]["index"] == 0):
-            print(obj[i]["courier"])
-'''            x.append(obj[i]["x"])
-            y.append(obj[i]["y"])
-    plt.plot(x,y)
-    plt.show()'''
+    index = 0
+    for i in courier:
+        if(index == 0):
+            point = i.points
+            for j in point:
+                x.append(j.x)
+                y.append(j.y)
+        index += 1
+    xlabels = np.asarray(x)
+    ylabels = np.asarray(y)
+    plt.plot(xlabels,ylabels)
+    plt.show
 
 def manhattan_distance(point_a, point_b):
     return abs(point_a.x - point_b.x) + abs(point_a.y - point_b.y)
@@ -26,55 +42,29 @@ def tabu_onepoint():
     pass
 
 def tabu_search(cities, couriers):
-    routes = []
-    base = Point(456,320)
-    results = []
-    courier_with_stations = []
-    k = 0
-    l = 0
+    courier_index = 0
+    city_index = 0
+    j_index = 0
     for i in range(len(cities)):
-        for j in range(len(cities)):
-            # négy futár miatt a base-ből indul
-            if(i < 4):
-                md = manhattan_distance(base,cities[j])
-                results.append(md)
-            # utána már a megfelelőből számolja ki a manhattan-távolságot
-            else:
-                #print(k)
-                # courier_with_stations indexel kell valamit varázsolni
-                # https://balkaninsight.com/2022/11/30/getting-to-the-bottom-of-hungarys-russian-spying-problem/
-                md = manhattan_distance(courier_with_stations[k]["point"],cities[j])
-                print(f'{courier_with_stations[k]["point"]} + {md}')
-                results.append(md)
-        print()
-        optimal_point = results.index(min(results))
-        courier_with_stations.append({
-            "courier":k,
-            "point":cities[optimal_point]
-        })
-        k += 1
-        if(k == 4):
-            k = 0
-        cities.pop(optimal_point)
-        results.clear()
-    final_xx = []
-    for i in courier_with_stations:
-        final_xx.append({
-            "index":i["courier"],
-            "x" :i["point"].x,
-            "y" :i["point"].y
-        })
-    #plot_points(final_xx)
-    return results
-'''final_xs = []
-    final_ys = []
-    for i in courier_with_stations:
-        print(f'courier:{i["courier"]} {i["point"]}')
-        final_xs.append(i["point"].x)
-        final_ys.append(i["point"].y)
-    plot_points(final_xs,final_ys)
-    # results = manhattan_distance(,)
-    return results'''
+        min_number = 0
+        j_index = 0
+        for j in couriers:
+            for k in range(len(cities)):
+                last_item_of_courier_point_list = couriers[j_index].points[len(couriers[j_index].points)-1]
+                distance = manhattan_distance(cities[k],last_item_of_courier_point_list)
+                if(j_index == 0 and k == 0):
+                    min_number = distance
+                    courier_index = j_index
+                    city_index = k
+                elif(distance < min_number):
+                    min_number = distance
+                    courier_index = j_index
+                    city_index = k
+            j_index += 1
+        couriers[courier_index].points.append(cities[city_index])
+        couriers[courier_index].distance += min_number
+        cities.pop(city_index)
+    return couriers
 
 def example_points():
     file = open("example_datas.txt","r")
@@ -86,6 +76,12 @@ def example_points():
     for i in range(16):
         points.append(Point(int(x_coordinates[i]),int(y_coordinates[i])))
     return points
+
+def init_couriers(couriers_number):
+    couriers = []
+    for i in range(couriers_number):
+        couriers.append(Courier(i))
+    return couriers
 
 def init_cities_locations(cities_number):
     points = []
@@ -118,9 +114,18 @@ def main():
     ## trying with example datas
     newvegas_couries = 4
     bbb = example_points()
-    results = tabu_search(bbb,newvegas_couries)
-
-    # print(sum(results))
+    couriers = init_couriers(newvegas_couries)
+    couriers = tabu_search(bbb,couriers)
+    sum_distance = 0
+    for i in couriers:
+        print(f'{i.id}, distance: {i.distance}', end="")
+        sum_distance += i.distance
+        points = i.points
+        for j in points:
+            print(f'{j},')
+        print()
+    print(f'Total distance: {sum_distance}m')
+    plot_points(couriers)
 
 if __name__ == "__main__":
     main()
