@@ -16,24 +16,29 @@ class Courier:
         self.distance = distance
     def __str__(self):
         return f'id: {self.id}, points:[{self.points}]'
-    #def __repr__(self):
-    #    return repr(self.points)
 
 def plot_points(courier):
-    x = []
-    y = []
+    figure, axes = plt.subplots()
     index = 0
+    
     for i in courier:
-        if(index == 0):
-            point = i.points
-            for j in point:
-                x.append(j.x)
-                y.append(j.y)
-        index += 1
-    xlabels = np.asarray(x)
-    ylabels = np.asarray(y)
-    plt.plot(xlabels,ylabels)
-    plt.show
+        x=[]
+        y=[]
+        point = i.points
+        for j in point:
+            x.append(j.x)
+            y.append(j.y)
+        axes.plot(x,y)
+    plt.show()
+
+def sum_distance(couriers):
+    sum_distance = 0
+    base = Point(456,320)
+    for i in couriers:
+        i.distance += manhattan_distance(base,i.points[len(i.points)-1])
+        i.points.append(base)
+        sum_distance += i.distance
+    print(f'Total distance: {sum_distance}m')
 
 def manhattan_distance(point_a, point_b):
     return abs(point_a.x - point_b.x) + abs(point_a.y - point_b.y)
@@ -105,27 +110,28 @@ def init_cities_and_couriers_number():
     return cities, couriers
 
 def main():
-    random.seed(200)
-    #cities_number, couriers_number = init_cities_and_couriers_number()
+    random.seed(50)
+    cities_number, couriers_number = init_cities_and_couriers_number()
     #print(f'cities: {cities_number}, couriers: {couriers_number}')
-    #warehouse = Point(456,320)
-    #cities = init_cities_locations(cities_number)
+    cities = init_cities_locations(cities_number)
+    couriers = init_couriers(couriers_number)
 
-    ## trying with example datas
-    newvegas_couries = 4
-    bbb = example_points()
-    couriers = init_couriers(newvegas_couries)
-    couriers = tabu_search(bbb,couriers)
-    sum_distance = 0
+    couriers = tabu_search(cities,couriers)
+    sum_distance(couriers)
+
     for i in couriers:
-        print(f'{i.id}, distance: {i.distance}', end="")
-        sum_distance += i.distance
+        print(i.id,end="")
         points = i.points
         for j in points:
-            print(f'{j},')
+            print(j,end="")
         print()
-    print(f'Total distance: {sum_distance}m')
+
     plot_points(couriers)
+    ## trying with example datas
+    #newvegas_couries = 4
+    #bbb = example_points()
+    #couriers = init_couriers(newvegas_couries)
+    #couriers = tabu_search(bbb,couriers)
 
 if __name__ == "__main__":
     main()
