@@ -17,11 +17,17 @@ class Courier:
     def __str__(self):
         return f'id: {self.id}, points:[{self.points}]'
 
-def plot_points(courier):
+def plot_couriers_coordinates(couriers):
+    for i in couriers:
+        print(i.id, end="")
+        point = i.points
+        for j in point:
+            print(j, end="")
+        print()
+
+def plot_couriers_route(couriers):
     figure, axes = plt.subplots()
-    index = 0
-    
-    for i in courier:
+    for i in couriers:
         x=[]
         y=[]
         point = i.points
@@ -43,29 +49,50 @@ def sum_distance(couriers):
 def manhattan_distance(point_a, point_b):
     return abs(point_a.x - point_b.x) + abs(point_a.y - point_b.y)
 
-def tabu_onepoint():
-    pass
+def tabu_search_second_solution(cities, couriers):
+    courier_index = 0
+    city_index = 0
+    for i in range(len(cities)):
+        min_number = 10000
+        for j in range(len(couriers)):
+            for k in range(len(cities)):
+                if(i < len(couriers)):
+                    if(len(couriers[j].points) == 1):
+                        last_item_of_courier_point_list = couriers[j].points[len(couriers[j].points)-1]
+                        distance = manhattan_distance(cities[k],last_item_of_courier_point_list)
+                        if(distance < min_number):
+                            min_number = distance
+                            courier_index = j
+                            city_index = k
+                else:
+                    last_item_of_courier_point_list = couriers[j].points[len(couriers[j].points)-1]
+                    distance = manhattan_distance(cities[k],last_item_of_courier_point_list)
+                    if(distance < min_number):
+                        min_number = distance
+                        courier_index = j
+                        city_index = k
+        couriers[courier_index].points.append(cities[city_index])
+        couriers[courier_index].distance += min_number
+        cities.pop(city_index)
+    return couriers
 
 def tabu_search(cities, couriers):
     courier_index = 0
     city_index = 0
-    j_index = 0
     for i in range(len(cities)):
         min_number = 0
-        j_index = 0
-        for j in couriers:
+        for j in range(len(couriers)):
             for k in range(len(cities)):
-                last_item_of_courier_point_list = couriers[j_index].points[len(couriers[j_index].points)-1]
+                last_item_of_courier_point_list = couriers[j].points[len(couriers[j].points)-1]
                 distance = manhattan_distance(cities[k],last_item_of_courier_point_list)
-                if(j_index == 0 and k == 0):
+                if(j == 0 and k == 0):
                     min_number = distance
-                    courier_index = j_index
+                    courier_index = j
                     city_index = k
                 elif(distance < min_number):
                     min_number = distance
-                    courier_index = j_index
+                    courier_index = j
                     city_index = k
-            j_index += 1
         couriers[courier_index].points.append(cities[city_index])
         couriers[courier_index].distance += min_number
         cities.pop(city_index)
@@ -110,28 +137,26 @@ def init_cities_and_couriers_number():
     return cities, couriers
 
 def main():
-    random.seed(50)
+    random.seed(312)
     cities_number, couriers_number = init_cities_and_couriers_number()
-    #print(f'cities: {cities_number}, couriers: {couriers_number}')
+    print(f'cities: {cities_number}, couriers: {couriers_number}')
     cities = init_cities_locations(cities_number)
     couriers = init_couriers(couriers_number)
 
-    couriers = tabu_search(cities,couriers)
-    sum_distance(couriers)
+    algorithm_number = input("Enter a number:\nTabu search shortest possible distance (1)\n Tabu search every courier get at least a route (2): ")
+    if(algorithm_number == '1'):
+        couriers = tabu_search(cities,couriers)
+    elif(algorithm_number == '2'):
+        couriers = tabu_search_second_solution(cities,couriers)
+    
+    sum_distance(couriers)    
+    plot_couriers_route(couriers)
+    #plot_couriers_coordinates(couriers)
 
-    for i in couriers:
-        print(i.id,end="")
-        points = i.points
-        for j in points:
-            print(j,end="")
-        print()
-
-    plot_points(couriers)
     ## trying with example datas
     #newvegas_couries = 4
-    #bbb = example_points()
+    #cities = example_points()
     #couriers = init_couriers(newvegas_couries)
-    #couriers = tabu_search(bbb,couriers)
 
 if __name__ == "__main__":
     main()
