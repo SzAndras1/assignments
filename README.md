@@ -1,7 +1,12 @@
 ## Artificial intelligence
 ### [Link a Vehicle Routing Problem tabu keresés algoritmussal megoldáshoz](#Vehicle-Routing-Problem-tabu-keresés-algoritmussal-megoldás)
-### Link a Flowshop határidőkkel probléma szimulált hűtés algoritmussal megoldáshoz
 
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Első tabu kereső algoritmus](#Első-megoldás)
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Második tabu kereső algoritmus](#Második-megoldás)
+
+
+### Link a Flowshop határidőkkel probléma szimulált hűtés algoritmussal megoldáshoz
 ## Vehicle Routing Problem tabu keresés algoritmussal megoldás
 A feladat kiírás szerint véletlenszerűen kell kiválasztani, hogy mennyi város és futár legyen. Megjegyzés: Ha 50 vagy több város van, akkor 10 vagy 20 futár van.
 ```python
