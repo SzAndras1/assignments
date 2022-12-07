@@ -171,7 +171,7 @@ Második megoldás:
 
 Teljes távolság: 22530m
 
-![Result4](/result_pictures/tabusearch_302_1.png "result4")
+![Result4](/result_pictures/tabusearch_302_2.png "result4")
 
 500-as seed, 200 város, 20 futár
 
