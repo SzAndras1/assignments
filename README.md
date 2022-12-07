@@ -1,5 +1,5 @@
 ## Artificial intelligence
-### Link a Vehicle Routing Problem tabu keresés algoritmussal megoldáshoz
+### [Link a Vehicle Routing Problem tabu keresés algoritmussal megoldáshoz](#Vehicle-Routing-Problem-tabu-keresés-algoritmussal-megoldás)
 ### Link a Flowshop határidőkkel probléma szimulált hűtés algoritmussal megoldáshoz
 
 ## Vehicle Routing Problem tabu keresés algoritmussal megoldás
@@ -55,9 +55,13 @@ def init_couriers(couriers_number):
         couriers.append(Courier(i))
     return couriers
 ```
-Első megoldás:
+#### Első megoldás:
 
-Tabu keresés egy tweak-el (csavarral): Ha egy futár érint egy várost, akkor azt a várost töröljük abból a listából, amelyik a városokat tárolja. Előny: harmadik for ciklus egyre kevesebbet kell mennie, hisz csökken a városok listája.
+Tabu keresés egy tweak-el (csavarral): Ha egy futár érint egy várost, akkor azt a várost töröljük abból a listából, amelyik a városokat tárolja.
+
+Előny: Harmadik for ciklus egyre kevesebbet kell mennie, hisz csökken a városok listája. A lehető legkevesebb utat járják be a futárok.
+
+Hátrány: Nem mindegyik futár indul el.
 
 Első for ciklus a városok mennyiségéig megy, hisz nem akarjuk azt az esetet, hogy egy pontot egy futár többször érintse (kivétel a kiindulási pont). Második for ciklus a futárok mennyiségig megy. Harmadik for ciklus a városok mennyiségéig megy.
 ```python
@@ -112,9 +116,11 @@ def sum_distance(couriers):
         sum_distance += i.distance
     print(f'Total distance: {sum_distance}m')
 ```
-Második megoldás:
+#### Második megoldás:
 
-Elsőnek minde futárnak talál egy várost, utána keressük a legrövidebb távokat.
+Elsőnek minden futárnak talál egy várost, utána keressük a legrövidebb távokat.
+
+Előny: mindegyik futárnak van legalább egy városcíme
 ```python
 def tabu_search_second_solution(cities, couriers):
     courier_index = 0
@@ -147,13 +153,13 @@ def tabu_search_second_solution(cities, couriers):
 ### Megoldás (ábrázolás)
 312-es seed, 500 város, 10 futár
 
-Első megoldás:
+#### Első megoldás:
 
 Teljes távolság: 27304m
 
 ![Result1](/result_pictures/tabusearch_312_1.png "result1")
 
-Második megoldás:
+#### Második megoldás:
 
 Teljes távolság: 28210m
 
@@ -161,13 +167,13 @@ Teljes távolság: 28210m
 
 302-es seed, 200 város, 20 futár
 
-Első megoldás:
+#### Első megoldás:
 
 ![Result3](/result_pictures/tabusearch_302_1.png "result3")
 
 Teljes távolság: 18206m
 
-Második megoldás:
+#### Második megoldás:
 
 Teljes távolság: 22530m
 
@@ -175,14 +181,19 @@ Teljes távolság: 22530m
 
 500-as seed, 200 város, 20 futár
 
-Első megoldás:
+#### Első megoldás:
 
 Teljes távolság: 12896m
 
 ![Result5](/result_pictures/tabusearch_500_1.png "result5")
 
-Második megoldás:
+#### Második megoldás:
 
 Teljes távolság: 19548m
 
 ![Result6](/result_pictures/tabusearch_500_2.png "result6")
+
+### Tervek
+
+* Második megoldás algoritmusát optimalizálni
+* Egy harmadik megoldás, ami a második megoldás alapját veszi, viszont csak akkor adunk egy futárhoz egy várost, ha csak eggyel több lokációja lesz, mint a többi városnak
