@@ -145,3 +145,44 @@ def tabu_search_second_solution(cities, couriers):
 
 ```
 ### Megoldás (ábrázolás)
+312-es seed, 500 város, 10 futár
+
+Első megoldás:
+
+Teljes távolság: 27304m
+
+![Result1](/result_pictures/tabusearch_312_1.png "result1")
+
+Második megoldás:
+
+Teljes távolság: 28210m
+
+![Result2](/result_pictures/tabusearch_312_2.png "result2")
+
+302-es seed, 200 város, 20 futár
+
+Első megoldás:
+
+![Result3](/result_pictures/tabusearch_302_1.png "result3")
+
+Teljes távolság: 18206m
+
+Második megoldás:
+
+Teljes távolság: 22530m
+
+![Result4](/result_pictures/tabusearch_302_1.png "result4")
+
+500-as seed, 200 város, 20 futár
+
+Első megoldás:
+
+Teljes távolság: 12896m
+
+![Result5](/result_pictures/tabusearch_500_1.png "result5")
+
+Második megoldás:
+
+Teljes távolság: 19548m
+
+![Result6](/result_pictures/tabusearch_500_2.png "result6")
