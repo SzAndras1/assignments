@@ -61,7 +61,6 @@ Ha változtatjuk a böngészőablak méretét, akkor aszerint fognak illeszkedni
         </tr>
     </tbody>
 </table>
-```css
 table.customTable {
     width: 31%;
     margin-left: auto;
