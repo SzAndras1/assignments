@@ -216,7 +216,7 @@ function insertError(errorcode) {
 ```
 ### Több darab html fájl legyen, minimum 4 <a name="htmlek"></a>
 ![Picture1](/markdown_folder/htmlfiles.png "picture1")
-## CSS követelmények
+## CSS követelmények <a name="csskov"></a>
 ### Style attribútumban néhány elem formázása <a name="styleattr">
 ```html
 <div id="initial" style="height:500px">
