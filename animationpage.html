@@ -1,0 +1,49 @@
+<html>
+
+<head>
+	<script src="scripts/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body>
+	<div id="header" class="header">
+		<h2>Cat page title</h2>
+	</div>
+	<div style="text-align: center;">
+		<div id="initial" style="height:500px">
+			<nav>
+				<ul id="navmenu">
+					<li><a href="index.html">Index page</a></li>
+					<li><a href="second.html">Second page</a></li>
+					<li><a href="third.html">Third page</a></li>
+					<li><a href="animationpage.html">Animation page</a></li>
+					<li><a href="cat.html">Cat page</a></li>
+				</ul>
+			</nav>
+			<button class="resetButton" style="margin-top:4px" id="mybutton" type="button">Animation!</button><br>
+			<img id="picture" style="position:relative;border: 0px solid black;" src="pictures/imgur.png" width="400px"
+				height="200px"><br>
+			<script>
+				$('#mybutton').click(function () {
+					$("#picture").animate({
+						height: '+=60px',
+						width: '+=150px'
+					});
+					$("#picture").animate({ height: "toggle" });
+					$("#picture").animate({ left: 300 });
+					$("#picture").animate({ height: "toggle" }, 500);
+					$("#picture").animate({ borderWidth: "5px" });
+					$("#picture").animate({ left: 0 });
+					$("#picture").animate({
+						height: '-=60px',
+						width: '-=150px'
+					});
+					$("#picture").animate({ borderWidth: "0px" });
+				});
+			</script>
+		</div>
+	</div>
+</body>
+
+</html>

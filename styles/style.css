@@ -1,0 +1,121 @@
+/*
+ 	Background, font and div css
+*/
+body{
+	background: #f8f7f7;
+	font: 1.2em "Fira Sans", sans-serif;
+}
+
+h2{
+	color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#initial{
+	/*712b4b*/
+	border: 1px solid #383838;
+	border-top: none;
+	/*https://www.makeuseof.com/css-background-patterns-examples/*/
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 60s ease infinite;
+}
+
+@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+	
+		50% {
+			background-position: 100% 50%;
+		}
+	
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+
+.textblock {
+		margin-left: auto;
+		margin-right: auto;
+		width: 31em;
+}
+/* 
+	Header & Navmenu 
+*/
+.header {
+	padding: 70px;
+	text-align: center;
+	background: #3ffaac;
+	color: rgb(0, 0, 0);
+	font-size: 30px;
+}
+
+#navmenu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+#navmenu li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #111;
+}
+/* 
+	Buttons
+*/
+.resetButton {
+	background-color:#ffffff;
+	border-radius:5px;
+	border:1px solid #000000;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	padding:8px 40px;
+	margin-bottom: 10px;
+	text-decoration:none;
+}
+
+.resetButton:hover {
+	background-color:#edf1fa;
+}
+
+.resetButton:active {
+	position:relative;
+	top:1px;
+}
+
+.submitButton {
+	background-color:#4CAF50;
+	color: white;
+	border: none;
+	border-radius:5px;
+	display:inline-block;
+	cursor:pointer;
+	padding:8px 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-decoration:none;
+}
+
+.submitButton:hover {
+	background-color:#45a049;
+}
+
+.submitButton:active {
+	position:relative;
+	top:1px;
+}

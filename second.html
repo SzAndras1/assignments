@@ -2,37 +2,36 @@
 
 <head>
     <title>Second</title>
-    <style>
-    .header {
-        padding: 70px;
-        text-align: center;
-        background: #712b4b;
-        color: white;
-        font-size: 30px;
-      }
-    </style>
-    <script type="text/javascript" src="listControl.js"></script>
+    <script type="text/javascript" src="scripts/listControl.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/listStyle.css">
 </head>
 
 <body>
-    <!--<header>
-        <img src="" alt="header image">
-    </header>-->
     <div id="header" class="header">
         <h2>Second page title</h2>
     </div>
-    <p>Ordered list</p>
-    <div id="links">
-        Give an item name!
-        <!--article-->
-        <input type="text" id="input">
-        <button id="submit" onclick="addItem('ol')">Add</button>
-        <ol id="ol">
-            <li>first</li>
-            <li>second</li>
-            <li>third</li>
-        </ol>
-        <p><a href="index.html">index page</a></p>
+    <div id="initial">
+        <nav>
+            <ul id="navmenu">
+                <li><a href="index.html">Index page</a></li>
+                <li><a href="second.html">Second page</a></li>
+                <li><a href="third.html">Third page</a></li>
+                <li><a href="animationpage.html">Animation page</a></li>
+                <li><a href="cat.html">Cat page</a></li>
+            </ul>
+        </nav>
+        <div class="textblock" id="links">
+            <h1>Ordered list</h1>
+            <h2>Give an item name!</h2>
+            <input type="text" id="input">
+            <button id="submit" onclick="addItem('ol')">Add</button>
+            <ol id="ol">
+                <li>first</li>
+                <li>second</li>
+                <li>third</li>
+            </ol>
+        </div>
     </div>
 </body>
 

@@ -1,29 +1,17 @@
-function addNewElement(text) {
-    let par = document.createElement("p")
+function addNewElement(text,type) {
+    let par = document.createElement(type)
     par.innerHTML = text
     document.getElementById("first").append(par)
 }
 
-function addNewDiv(text) {
-    let par = document.createElement("div")
-    par.innerHTML = text
-    document.getElementById("second").append(par)
-}
-
-var a = 0
 function validateForm() {
     // Gets every form element
     let form = document.forms[0]
     // if it stays true then the form is valid
     let flag = true
 
-    // remove previous validateForm() function call's error messages
-    const errors = document.getElementsByClassName("mystyle")
-    let errorLength = errors.length - 1
-    while (errorLength >= 0) {
-        errors[errorLength].remove()
-        errorLength--
-    }
+    // remove previous validateForm() function call's error messages and form frame
+    deleteError()
 
     // check every form element except radio (form.length - 1 because of the submit button)
     for (let i = 0; i < form.length - 1; i++) {
@@ -78,10 +66,11 @@ function check(obj) {
 }
 
 // inserting error message
-function insertAfter(referenceNode, errorcode) {
+function insertAfter(referenceNode, errorCode) {
     let newNode = document.createElement("p")
     newNode.className = "mystyle"
-    switch (errorcode) {
+    document.ns
+    switch (errorCode) {
         case (0):
             newNode.innerHTML = "Must be checked"
             break
@@ -95,5 +84,29 @@ function insertAfter(referenceNode, errorcode) {
             newNode.innerHTML = "Must be at least 3 characters"
             break
     }
+    let everyInput = document.getElementsByTagName("input")
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
+    if(newNode.previousSibling.type === "radio"){
+        let radios = document.getElementsByName("radio");
+        for(let i = 0;i<radios.length;i++)
+            radios[i].className = "errorFrame"
+    }
+    else
+        newNode.previousSibling.className = "errorFrame"
+}
+
+function deleteError(){
+    const errors = document.getElementsByClassName("mystyle")
+    const errorFrame = document.getElementsByClassName("errorFrame")
+    let errorLength = errors.length - 1
+    while (errorLength >= 0) {
+        errors[errorLength].remove()
+        errorLength--
+    }
+
+    let errorFrameLength = errorFrame.length -1
+    while(errorFrameLength >= 0){
+        errorFrame[errorFrameLength].className = "default"
+        errorFrameLength--
+    }
 }

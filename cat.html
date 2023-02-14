@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        div.gallery {
+            border: 2px solid #ccc;
+        }
+
+        div.gallery:hover {
+            border: 2px solid #777;
+        }
+
+        div.gallery img {
+            width: 100%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .responsive {
+            padding: 0 6px;
+            float: left;
+            width: 24.99999%;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .responsive {
+                width: 49.99999%;
+                margin: 6px 0;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            .responsive {
+                width: 100%;
+            }
+        }
+
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header" class="header">
+        <h2>Cat page title</h2>
+    </div>
+    <nav>
+        <ul id="navmenu">
+            <li><a href="index.html">Index page</a></li>
+            <li><a href="second.html">Second page</a></li>
+            <li><a href="third.html">Third page</a></li>
+            <li><a href="animationpage.html">Animation page</a></li>
+            <li><a href="cat.html">Cat page</a></li>
+        </ul>
+    </nav>
+    <h2>My cat</h2>
+    <div class="responsive">
+        <div class="gallery">
+            <img src="pictures/1676311185837.jpeg" alt="Cat1" width="600" height="400">
+            </a>
+            <div class="desc">One of the oldest photo of her</div>
+        </div>
+    </div>
+    <div class="responsive">
+        <div class="gallery">
+            <img src="pictures/1676311185890.jpeg" alt="Cats" width="600" height="400">
+            </a>
+            <div class="desc">With my former cat</div>
+        </div>
+    </div>
+    <div class="responsive">
+        <div class="gallery">
+            <img src="pictures/1676311185786.jpg" alt="Cat2" width="600" height="400">
+            </a>
+            <div class="desc">She likes the camera</div>
+        </div>
+    </div>
+    <div class="responsive">
+        <div class="gallery">
+            <img src="pictures/1676311185803.jpeg" alt="Cat3" width="600" height="400">
+            </a>
+            <div class="desc">When I flatten her fur</div>
+        </div>
+    </div>
+    <div class="responsive">
+        <div class="gallery">
+            <img src="pictures/1676311185861.jpeg" alt="Cat4" width="600" height="400">
+            </a>
+            <div class="desc">She is half Scottish Fold and half Persian</div>
+        </div>
+    </div>
+</body>
+
+</html>

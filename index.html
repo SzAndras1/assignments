@@ -4,15 +4,44 @@
     <meta charset="utf-8" />
     <title>Assignment</title>
     <style>
-        .errorMessage {
-            letter-spacing: 2px;
-            text-decoration: underline wavy;
+        /*
+            form and error css
+        */
+        .form {
+            padding-top: 20px;
+            padding-bottom: 5px;
+            text-align: center;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30em;
+            background: #ebe6e8;
         }
 
+        .mystyle {
+            letter-spacing: 2px;
+            color: #ff0000;
+            margin-top: 2%;
+        }
+
+        .errorFrame {
+            border: 1px solid red;
+            outline: 1px solid red;
+        }
+
+        label:not(.radio) {
+            display: inline;
+            clear: left;
+            text-align: right;
+            padding-right: 5%;
+        }
+        /* 
+            input css
+        */
         input[type=text],
         select {
-            width: 60%;
-            padding: 12px 20px;
+            width: 150px;
+            padding: 3px 5px;
             margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
@@ -20,44 +49,18 @@
             box-sizing: border-box;
         }
 
-        input[type=submit] {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        input[type=submit]:hover {
-            background-color: #45a049;
-        }
-
-        .form div {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
+        [type="date"] {
+            background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
         }
 
         [type="date"],
         [type="color"] {
-            background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
             border: 1px solid #c4c4c4;
             border-radius: 5px;
             background-color: #fff;
             padding: 3px 5px;
             box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        [type="color"] {
-            cursor: pointer;
-        }
-
-        [type="radio"] {
-            font-size: 2rem;
+            width: 150px;
         }
 
         [type="date"]::-webkit-inner-spin-button {
@@ -67,94 +70,165 @@
         [type="date"]::-webkit-calendar-picker-indicator {
             opacity: 0;
         }
-
-        /* custom styles 
-        body {
-            padding: 4em;
-            background: #e5e5e5;
-            font: 13px/1.4 Geneva, 'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
-        }*/
-
-        label {
-            display: block;
+        input{
+            margin-top: 4%;
+        }
+        /* 
+            Table 
+        */
+        table.customTable {
+            width: 31%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #FFFFFF;
+            border-collapse: collapse;
+            border-width: 5px;
+            border-color: #7EA8F8;
+            border-style: solid;
+            color: #000000;
         }
 
-        input:invalid {
-            border: 2px dashed red;
+        table.customTable td,
+        table.customTable th {
+            border-width: 5px;
+            border-color: #7EA8F8;
+            border-style: solid;
+            padding: 5px;
         }
 
-        input:valid {
-            border: 2px solid black;
+        table.customTable thead {
+            background-color: #7EA8F8;
+        }
+
+        .stroke {
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
     </style>
-    <script type="text/javascript" src="validate.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <script type="text/javascript" src="scripts/validate.js"></script>
 </head>
 
 <body>
-    <h1>Új elem készités</h1>
-    <div id="first">
-        <script>addNewElement("Mukodik")</script>
+    <div id="header" class="header">
+        <h2>Index page title</h2>
     </div>
-    <h1>Elem módositás</h1>
-    <h1>Elem kiválasztás(tag név,id, osztály)</h1>
-    <h1>form ellenőrzés (kiirja, h mi a hibás és piros lesz a háttere)</h1>
-    <div id="second">
-        <script>addNewDiv("Ez is")</script>
+    <div id="initial">
+        <nav>
+            <ul id="navmenu">
+                <li><a href="index.html">Index page</a></li>
+                <li><a href="second.html">Second page</a></li>
+                <li><a href="third.html">Third page</a></li>
+                <li><a href="animationpage.html">Animation page</a></li>
+                <li><a href="cat.html">Cat page</a></li>
+            </ul>
+        </nav>
+        <div class="textblock" id="first">
+            <h2>New element creation with <span class="stroke">Javascript</span> :</h2>
+            <script>addNewElement("Works!", "h2")</script>
+        </div>
+        <p class="textblock">This rather narrow block of text is centered. Note that the lines inside the block are not
+            centered (they are left-aligned)</p>
+        <p class="textblock">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis imperdiet tortor tortor,
+            vitae volutpat dolor bibendum et. Suspendisse potenti. Vivamus aliquet dignissim risus ac mattis. Vestibulum
+            ligula libero, cursus vitae dictum vitae, euismod nec mi. Ut pharetra mollis odio eget mattis. Maecenas et
+            dui dapibus, dignissim nisi et, bibendum lacus. Duis consequat dui a nisl laoreet, sed sodales turpis
+            semper. Sed tempus orci erat, tincidunt suscipit augue consequat quis. Cras viverra sit amet magna sit amet
+            ullamcorper. Fusce lorem massa, semper id nisi tincidunt, maximus elementum metus. Vivamus vel risus felis.
+            Phasellus euismod rhoncus tincidunt. Pellentesque habitant morbi tristique senectus et netus et malesuada
+            fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
+            turpis egestas. Ut pulvinar egestas diam, sit amet viverra lorem iaculis ut. Proin ante purus, tincidunt
+            eget egestas vitae, imperdiet at odio. Praesent iaculis aliquet magna. Praesent id dignissim orci. Nullam
+            tempus, sem eu semper maximus, tellus turpis rhoncus tellus, sed convallis urna magna in ante. Donec
+            fermentum luctus metus, eget eleifend justo ullamcorper non. Nulla sed maximus urna. Sed pellentesque, metus
+            eu scelerisque pretium, libero sem elementum velit, in vestibulum elit odio nec metus.</p>
+
+        <table class="customTable">
+            <thead>
+                <tr>
+                    <th class="stroke">Header 1</th>
+                    <th class="stroke">Header 2</th>
+                    <th class="stroke">Header 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row 1</td>
+                    <td>Row 1</td>
+                    <td>Row 1</td>
+                </tr>
+                <tr>
+                    <td>Row 2</td>
+                    <td>Row 2</td>
+                    <td>Row 2</td>
+                </tr>
+                <tr>
+                    <td>Row 3</td>
+                    <td>Row 3</td>
+                    <td>Row 3</td>
+                </tr>
+                <tr>
+                    <td>Row 4</td>
+                    <td colspan="2" style="text-align: center;">Row 4</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form">
+            <form name="register" method="post">
+                <div style="white-space:nowrap">
+                    <label for="firstname"><b>First name:</b></label>
+                    <input type="text" id="firstname">
+                </div>
+                <div style="white-space:nowrap">
+                    <label for="textarea"><b>Textarea:</b></label>
+                    <textarea id="textarea" style="resize:vertical;" cols="17" rows="2"></textarea>
+                </div>
+                <div style="white-space:nowrap">
+                    <label for="checkbox"><b>Checkbox:</b></label>
+                    <input type="checkbox" id="checkbox">
+                </div>
+                <div style="white-space:nowrap">
+                    <label for="selection"><b>Selection:</b></label>
+                    <select name="selection" id="selection">
+                        <option value="" selected disabled>---</option>
+                        <optgroup label="Ones">
+                            <option value="one">One</option>
+                        </optgroup>
+                        <optgroup label="Twos">
+                            <option value="two">Two</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div style="white-space:nowrap">
+                    <label class="radio" for="radio_one"><b>First</b></label>
+                    <input type="radio" id="radio_one" name="radio" value="first">
+                    <label class="radio" for="radio_two"><b>Second</b></label>
+                    <input type="radio" id="radio_two" name="radio" value="second">
+                    <label class="radio" for="radio_three"><b>Third</b></label>
+                    <input type="radio" id="radio_three" name="radio" value="third">
+                </div>
+
+                <div style="white-space:nowrap">
+                    <label for="date"><b>Date:</b></label>
+                    <input type="date" id="date">
+                </div>
+
+                <div style="white-space:nowrap">
+                    <label for="color" class="dateLabel"><b>Color palette:</b></label>
+                    <input type="color" style="cursor: pointer;">
+                </div>
+
+                <div style="white-space:nowrap">
+                    <input class="submitButton" type="submit" onclick="validateForm()" value="Submit">
+                </div>
+
+                <div style="white-space:nowrap">
+                    <button class="resetButton" type="reset" onclick="deleteError()">Reset</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <p>
-            <a href="second.html">second page</a>
-        </p>
-        <p><a href="third.html">third page</a></p>
-    </div>
-    <div class="form">
-        <h2>FORM</h2>
-        <form name="register" method="post">
-            <label for="firstname">First name:</label>
-            <input type="text" id="firstname">
-
-            <label for="textarea">Textarea:</label>
-            <textarea id="textarea" cols="40" rows="5"></textarea>
-
-            <label for="checkbox">Checkbox</label>
-            <input type="checkbox" id="checkbox">
-
-            <label for="selection">Selection:</label>
-            <select name="selection" id="selection">
-                <option value="" selected disabled>---</option>
-                <optgroup label="Ones">
-                    <option value="one">One</option>
-                </optgroup>
-                <optgroup label="Twos">
-                    <option value="two">Two</option>
-                </optgroup>
-            </select>
-
-            <label for="radio_one">First</label>
-            <input type="radio" id="radio_one" name="radio" value="first">
-            <label for="radio_two">Second</label>
-            <input type="radio" id="radio_two" name="radio" value="second">
-            <label for="radio_three">Third</label>
-            <input type="radio" id="radio_three" name="radio" value="third">
-
-            <label for="date">Date</label>
-            <input type="date" id="date">
-
-            <label for="color" class="dateLabel">Color palette</label>
-            <input type="color">
-
-            <input type="submit" onclick="validateForm()" value="Submit">
-            <button type="reset">Reset</button>
-        </form>
-    </div>
-    <h2>Számozott lista ✅</h2>
-    <h2>Pontozott lista ✅</h2>
-    <h2>Képek</h2>
-    <h2>Error esetén szaggatott input szegély 🔜</h2>
-    <h2>span, linkek</h2>
-    <h2>4 db html fájl 🔜</h2>
-    <h2>css követelmények</h2>
-    <h2>animáció 🔜</h2>
 </body>
 
 </html>
