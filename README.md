@@ -1,13 +1,29 @@
-## Dokumentálás
-## Követelmények
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[div, span, p, címsorok](#div,-span,-p,-címsorok)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Képek](#Képek)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Táblázat](#Táblázat)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Linkek, menü kialakítása](#Linkek,-menü-kialakítása)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Űrlap elemek](#Űrlap-elemek)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Számozott lista, pontozott lista](#Számozott-lista,-pontozott-lista)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Több darab html fájl legyen, minimum 4](#Több-darab-html-fájl-legyen,-minimum-4)
-### div, span, p, címsorok
+## Table of contents
+### [HTML követelmények](#htmlkov)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[div, span, p, címsorok](#div)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Képek](#kep)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Táblázat](#tabla)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Linkek, menü kialakítása](#linkek)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Űrlap elemek](#urlap)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Számozott lista, pontozott lista](#listak)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Több darab html fájl legyen, minimum 4](#htmlek)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[CSS követelmények](#htmlek)
+### [CSS követelmények](#csskov)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Style attribútumban néhány elem formázása](#styleattr)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Azonosító alapján formázás](#azonosito)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Osztály alapján formázás](#osztaly)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Táblázat formázása](#tablaformazas)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Menü kialakítása](#menu)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Háttérszín](#hatterszin)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Linkek formázása](#linkekformazasa)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Űrlap elemek, gombok formázása](#urlapformazas)
+### [Javascript követelmények](#javasckov)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Form ellenőrzés, elemek kiválasztása html tag, osztály, azonosító alapján](#formjs)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Animáció](#animacio)
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Új html elem készítés](#ujelem)
+
+## HTML követelmények <a name="htmlkov"></a>
+### div, span, p, címsorok <a name="div"></a>
 ```html
 <div id="header" class="header">
     <h2>Cat page title</h2>
@@ -19,7 +35,7 @@
 ```html
 <p class="textblock">This rather... </p>
 ```
-### Képek
+### Képek <a name="kep"></a>
 Ha változtatjuk a böngészőablak méretét, akkor aszerint fognak illeszkedni a képek. A képek alján rövid aláírások találhatóak.
 ```html
 <div class="responsive">
@@ -29,7 +45,7 @@ Ha változtatjuk a böngészőablak méretét, akkor aszerint fognak illeszkedni
     </div>
 </div>
 ```
-### Táblázat
+### Táblázat <a name="tabla"></a>
 ```html
 <table class="customTable">
     <thead>
@@ -61,31 +77,8 @@ Ha változtatjuk a böngészőablak méretét, akkor aszerint fognak illeszkedni
         </tr>
     </tbody>
 </table>
-table.customTable {
-    width: 31%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #FFFFFF;
-    border-collapse: collapse;
-    border-width: 5px;
-    border-color: #7EA8F8;
-    border-style: solid;
-    color: #000000;
-}
-
-table.customTable td,
-table.customTable th {
-    border-width: 5px;
-    border-color: #7EA8F8;
-    border-style: solid;
-    padding: 5px;
-}
-
-table.customTable thead {
-    background-color: #7EA8F8;
-}
 ```
-### Linkek, menü kialakítása
+### Linkek <a name="linkek"></a>
 ```html
 <nav>
     <ul id="navmenu">
@@ -97,8 +90,7 @@ table.customTable thead {
     </ul>
 </nav>
 ```
-### Űrlap elemek
-Egysoros, többsoros
+### Űrlap elemek <a name="urlap"></a>
 ```html
 <div class="form">
     <form name="register" method="post">
@@ -155,7 +147,7 @@ Egysoros, többsoros
     </form>
 </div>
 ```
-### Számozott lista, pontozott lista
+### Számozott lista, pontozott lista <a name="listak"></a>
 ```html
 <input type="text" id="input">
 <button id="submit" onclick="addItem('ol')">Add</button>
@@ -222,8 +214,243 @@ function insertError(errorcode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
 }
 ```
-### Több darab html fájl legyen, minimum 4
+### Több darab html fájl legyen, minimum 4 <a name="htmlek"></a>
 ![Picture1](/markdown_folder/htmlfiles.png "picture1")
-## css követelmények
-### style attribútumban néhány elem formázása
+## CSS követelmények
+### Style attribútumban néhány elem formázása <a name="styleattr">
+```html
+<div id="initial" style="height:500px">
+```
+### Azonosító alapján formázás <a name="azonosito"></a>
+```
+#navmenu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+```
+### Osztály alapján formázás <a name="osztaly"></a>
+```
+.mystyle {
+    letter-spacing: 2px;
+    color: #ff0000;
+    margin-top: 2%;
+}
+```
+### Táblázat formázás <a name="tablaformazas"></a>
+```
+table.customTable {
+    width: 31%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+    border-width: 5px;
+    border-color: #7EA8F8;
+    border-style: solid;
+    color: #000000;
+}
+
+table.customTable td,
+table.customTable th {
+    border-width: 5px;
+    border-color: #7EA8F8;
+    border-style: solid;
+    padding: 5px;
+}
+
+table.customTable thead {
+    background-color: #7EA8F8;
+}
+```
+### Menü kialakítása <a name="menu"></a>
+```
+#navmenu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+#navmenu li {
+	float: left;
+}
+```
+### Háttérszín <a name="hatterszin"></a>
+```
+body{
+	background: #f8f7f7;
+	font: 1.2em "Fira Sans", sans-serif;
+}
+```
+### Linkek formázása <a name="linkekformazasa"></a>
+```
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #111;
+}
+```
+### Űrlap elemek, gombok formázása <a name="urlapformazas"></a>
+```
+input[type=text],
+select {
+    width: 150px;
+    padding: 3px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.resetButton {
+	background-color:#ffffff;
+	border-radius:5px;
+	border:1px solid #000000;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	padding:8px 40px;
+	margin-bottom: 10px;
+	text-decoration:none;
+}
+```
+## Javascript, JQuery követelmények <a name="javasckov"></a>
+### Form ellenőrzés, elemek kiválasztása html tag, osztály, azonosító alapján <a name="formjs"></a>
+Az űrlapokat összegyűjtöm a form változóba és létrehozok egy boolean változót, ami alapján végzi el az űrlapot
+```javascript
+function validateForm() {
+    let form = document.forms[0]
+    let flag = true
+```
+Ha hibás az űrlap, akkor hibaüzeneteket hozok létre. Mielőtt lefutna a `validateForm()` függvény, törlöm a hibaüzeneteket.
+```javascript
+function deleteError(){
+    const errors = document.getElementsByClassName("mystyle")
+    const errorFrame = document.getElementsByClassName("errorFrame")
+    let errorLength = errors.length - 1
+    while (errorLength >= 0) {
+        errors[errorLength].remove()
+        errorLength--
+    }
+
+    let errorFrameLength = errorFrame.length -1
+    while(errorFrameLength >= 0){
+        errorFrame[errorFrameLength].className = "default"
+        errorFrameLength--
+    }
+}
+```
+Radio kivételével az összes elem validálása
+```javascript
+    for (let i = 0; i < form.length - 1; i++) {
+        let input = form.elements[i]
+        if (input.id == "checkbox") {
+            if (check(input)) {
+                flag = false
+                insertAfter(input, 0)
+            }
+        }
+        else if (input.id == "date") {
+            if (input.value < "2022-01-01" || input.value > "2023-12-31") {
+                flag = false
+                insertAfter(input, 1)
+            }
+        }
+        else if (input.value.length <= 2) {
+            flag = false
+            if (input.id == "selection")
+                insertAfter(input, 2)
+            else
+                unsertAfter(input, 3)
+        }
+    }
+```
+Checkbox-nál a validáló függvény
+```javascript
+function check(obj) {
+    if (!obj.checked)
+        return true
+}
+```
+Radio validálás
+```javascript
+    let radios = document.getElementsByName("radio");
+    let radio_decider = 0
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked)
+            radio_decider += 1
+    }
+    if (radio_decider == 0) {
+        flag = false
+        insertAfter(radios[radios.length - 1], 2)
+    }
+```
+Hibaüzenet beszúrása, mystyle és errorframe class hozzáadás, hogy változzon a kinézet.
+```javascript
+function insertAfter(referenceNode, errorCode) {
+    let newNode = document.createElement("p")
+    newNode.className = "mystyle"
+    document.ns
+    switch (errorCode) {
+        case (0):
+            newNode.innerHTML = "Must be checked"
+            break
+        case (1):
+            newNode.innerHTML = "Must be between 2022-01-01 and 2023-12-31"
+            break
+        case (2):
+            newNode.innerHTML = "One must be selected"
+            break
+        case (3):
+            newNode.innerHTML = "Must be at least 3 characters"
+            break
+    }
+    let everyInput = document.getElementsByTagName("input")
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling)
+    if(newNode.previousSibling.type === "radio"){
+        let radios = document.getElementsByName("radio");
+        for(let i = 0;i<radios.length;i++)
+            radios[i].className = "errorFrame"
+    }
+    else
+        newNode.previousSibling.className = "errorFrame"
+}
+```
+### Animáció
+```javascript
+$('#mybutton').click(function () {
+    $("#picture").animate({
+        height: '+=60px',
+        width: '+=150px'
+    });
+    $("#picture").animate({ height: "toggle" });
+    $("#picture").animate({ left: 300 });
+    $("#picture").animate({ height: "toggle" }, 500);
+    $("#picture").animate({ borderWidth: "5px" });
+    $("#picture").animate({ left: 0 });
+    $("#picture").animate({
+        height: '-=60px',
+        width: '-=150px'
+    });
+    $("#picture").animate({ borderWidth: "0px" });
+});
+```
+
+### Új html elem készítés <a name="ujelem"></a>
+```javascript
+function addNewElement(text,type) {
+    let par = document.createElement(type)
+    par.innerHTML = text
+    document.getElementById("first").append(par)
+}
 ```
