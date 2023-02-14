@@ -7,7 +7,6 @@
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Űrlap elemek](#urlap)
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Számozott lista, pontozott lista](#listak)
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Több darab html fájl legyen, minimum 4](#htmlek)
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[CSS követelmények](#htmlek)
 ### [CSS követelmények](#csskov)
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Style attribútumban néhány elem formázása](#styleattr)
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Azonosító alapján formázás](#azonosito)
@@ -222,7 +221,7 @@ function insertError(errorcode) {
 <div id="initial" style="height:500px">
 ```
 ### Azonosító alapján formázás <a name="azonosito"></a>
-```
+```css
 #navmenu {
 	list-style-type: none;
 	margin: 0;
@@ -232,7 +231,7 @@ function insertError(errorcode) {
 }
 ```
 ### Osztály alapján formázás <a name="osztaly"></a>
-```
+```css
 .mystyle {
     letter-spacing: 2px;
     color: #ff0000;
@@ -240,7 +239,7 @@ function insertError(errorcode) {
 }
 ```
 ### Táblázat formázás <a name="tablaformazas"></a>
-```
+```css
 table.customTable {
     width: 31%;
     margin-left: auto;
@@ -266,7 +265,7 @@ table.customTable thead {
 }
 ```
 ### Menü kialakítása <a name="menu"></a>
-```
+```css
 #navmenu {
 	list-style-type: none;
 	margin: 0;
@@ -280,14 +279,14 @@ table.customTable thead {
 }
 ```
 ### Háttérszín <a name="hatterszin"></a>
-```
+```css
 body{
 	background: #f8f7f7;
 	font: 1.2em "Fira Sans", sans-serif;
 }
 ```
 ### Linkek formázása <a name="linkekformazasa"></a>
-```
+```css
 li a {
 	display: block;
 	color: white;
@@ -301,7 +300,7 @@ li a:hover {
 }
 ```
 ### Űrlap elemek, gombok formázása <a name="urlapformazas"></a>
-```
+```css
 input[type=text],
 select {
     width: 150px;
