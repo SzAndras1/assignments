@@ -95,3 +95,7 @@ void draw_origin()
 
     glEnd();
 }
+
+void setBrightness(Scene *scene, double brightness) {
+    scene->brightness = brightness;
+}

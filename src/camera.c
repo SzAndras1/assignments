@@ -6,11 +6,11 @@
 
 void init_camera(Camera* camera)
 {
-    camera->position.x = 0.0;
+    camera->position.x = -7.5;
     camera->position.y = 0.0;
-    camera->position.z = 1.0;
+    camera->position.z = 2.0;
     camera->rotation.x = 0.0;
-    camera->rotation.y = 0.0;
+    camera->rotation.y = -8.0;
     camera->rotation.z = 0.0;
     camera->speed.x = 0.0;
     camera->speed.y = 0.0;
@@ -31,6 +31,7 @@ void update_camera(Camera* camera, double time)
     camera->position.y += sin(angle) * camera->speed.y * time;
     camera->position.x += cos(side_angle) * camera->speed.x * time;
     camera->position.y += sin(side_angle) * camera->speed.x * time;
+    camera->position.z += camera->speed.z * time;
 }
 
 void set_view(const Camera* camera)
@@ -100,4 +101,8 @@ void show_texture_preview()
     glDisable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
     glEnable(GL_DEPTH_TEST);
+}
+
+void set_camera_speed_z(Camera* camera, double speed){
+    camera->speed.z = speed;
 }

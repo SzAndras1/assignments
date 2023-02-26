@@ -11,6 +11,7 @@ typedef struct Scene
     Model cube;
     Material material;
     GLuint texture_id;
+    float brightness;
 } Scene;
 
 /**
@@ -42,5 +43,10 @@ void render_scene(const Scene* scene);
  * Draw the origin of the world coordinate system.
  */
 void draw_origin();
+
+/**
+ * Set the scene's brightness
+ */
+void setBrightness(Scene *scene, double brightness);
 
 #endif /* SCENE_H */
