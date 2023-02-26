@@ -10,7 +10,8 @@ typedef struct Scene
 {
     Model cube;
     Material material;
-    GLuint texture_id;
+    GLuint cube_texture_id;
+    GLuint skybox_texture_id;
     float brightness;
 } Scene;
 

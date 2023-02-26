@@ -15,7 +15,7 @@ void init_app(App *app, int width, int height) {
     }
 
     app->window = SDL_CreateWindow(
-            "Cube!",
+            "Open World!",
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             width, height,
             SDL_WINDOW_OPENGL);
@@ -61,6 +61,7 @@ void init_opengl() {
     glClearDepth(1.0);
 
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_CUBE_MAP);
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -89,7 +90,7 @@ void reshape(GLsizei width, GLsizei height) {
     glFrustum(
             -.08, .08,
             -.06, .06,
-            .1, 10
+            .1, 50000
     );
 }
 
@@ -109,16 +110,16 @@ void handle_app_events(App *app) {
                         app->is_running = false;
                         break;
                     case SDL_SCANCODE_W:
-                        set_camera_speed(&(app->camera), 4);
+                        set_camera_speed(&(app->camera), 15);
                         break;
                     case SDL_SCANCODE_S:
-                        set_camera_speed(&(app->camera), -4);
+                        set_camera_speed(&(app->camera), -15);
                         break;
                     case SDL_SCANCODE_A:
-                        set_camera_side_speed(&(app->camera), 4);
+                        set_camera_side_speed(&(app->camera), 15);
                         break;
                     case SDL_SCANCODE_D:
-                        set_camera_side_speed(&(app->camera), -4);
+                        set_camera_side_speed(&(app->camera), -15);
                         break;
                     case SDL_SCANCODE_SPACE:
                         set_camera_speed_z(&(app->camera), 4);
