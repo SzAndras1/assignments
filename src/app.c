@@ -24,7 +24,8 @@ void init_app(App *app, int width, int height) {
         return;
     }
 
-    inited_loaders = IMG_Init(IMG_INIT_PNG);
+    int img_flags = IMG_INIT_JPG | IMG_INIT_PNG;
+    inited_loaders = IMG_Init(img_flags);
     if (inited_loaders == 0) {
         printf("[ERROR] IMG initialization error: %s\n", IMG_GetError());
         return;
@@ -61,7 +62,6 @@ void init_opengl() {
     glClearDepth(1.0);
 
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_TEXTURE_CUBE_MAP);
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -90,7 +90,7 @@ void reshape(GLsizei width, GLsizei height) {
     glFrustum(
             -.08, .08,
             -.06, .06,
-            .1, 50000
+            .1, 2000
     );
 }
 

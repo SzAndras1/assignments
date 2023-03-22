@@ -9,9 +9,11 @@
 typedef struct Scene
 {
     Model cube;
+    Model duck;
     Material material;
-    GLuint cube_texture_id;
     GLuint skybox_texture_id;
+    GLuint cube_texture_id;
+    GLuint duck_texture_id;
     float brightness;
 } Scene;
 
@@ -48,6 +50,22 @@ void draw_origin();
 /**
  * Set the scene's brightness
  */
-void setBrightness(Scene *scene, double brightness);
+void setBrightness(Scene *scene, float brightness);
+/**
+ * Load skybox
+ */
+void load_skybox(Scene scene);
+/**
+ * Load models for init_scene function
+ */
+void load_models_init_scene(Scene *scene);
+/**
+ * Load textures for init_scene function
+ */
+void load_textures_init_scene(Scene *scene);
+/**
+ * Load objects
+ */
+void load_objects(Scene scene);
 
 #endif /* SCENE_H */
