@@ -132,6 +132,9 @@ void handle_app_events(App *app) {
                         break;
                     case SDL_SCANCODE_2:
                         setBrightness(&(app->scene), 0.1f);
+                    case SDL_SCANCODE_Q:
+                        change_flag(&(app->scene));
+                        break;
                     default:
                         break;
                 }
@@ -190,7 +193,7 @@ void update_app(App *app) {
     app->uptime = current_time;
 
     update_camera(&(app->camera), elapsed_time);
-    update_scene(&(app->scene));
+    update_scene(&(app->scene), elapsed_time);
 }
 
 void render_app(App *app) {

@@ -24,6 +24,10 @@ void init_scene(Scene *scene) {
 
     scene->material.shininess = 0.0f;
     scene->brightness = 0.0f;
+
+    scene->angle = -2.0f;
+    scene->flag = false;
+    scene->counter = 0;
 }
 
 void load_models_init_scene(Scene *scene) {
@@ -99,6 +103,7 @@ void load_objects(Scene scene) {
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.duck_texture_id);
+    glTranslatef(scene.angle,-3.0f,0.0f);
     glScalef(0.25f, 0.25f, 0.25f);
     draw_model(&(scene.duck));
     glPopMatrix();
@@ -142,7 +147,23 @@ void set_material(const Material *material) {
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &(material->shininess));
 }
 
-void update_scene(Scene *scene) {
+void update_scene(Scene *scene, double time) {
+    if(scene->flag){
+        if(scene->counter % 2 == 0){
+            scene->angle += 1.5f * (float) time;
+            if(scene->angle >= 8.0f){
+                scene->flag = false;
+                scene->counter += 1;
+            }
+        }
+        else{
+            scene->angle -= 1.5f * (float) time;
+            if(scene->angle <= -2.0f){
+                scene->flag = false;
+                scene->counter += 1;
+            }
+        }
+    }
 }
 
 void render_scene(const Scene *scene) {
@@ -173,4 +194,8 @@ void draw_origin() {
 
 void setBrightness(Scene *scene, float brightness) {
     scene->brightness = brightness;
+}
+
+void change_flag(Scene *scene){
+    scene->flag = true;
 }

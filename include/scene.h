@@ -15,6 +15,9 @@ typedef struct Scene
     GLuint cube_texture_id;
     GLuint duck_texture_id;
     float brightness;
+    float angle;
+    bool flag;
+    int counter;
 } Scene;
 
 /**
@@ -35,7 +38,7 @@ void set_material(const Material* material);
 /**
  * Update the scene.
  */
-void update_scene(Scene* scene);
+void update_scene(Scene* scene, double time);
 
 /**
  * Render the scene objects.
@@ -67,5 +70,9 @@ void load_textures_init_scene(Scene *scene);
  * Load objects
  */
 void load_objects(Scene scene);
+/**
+ * Change flag so update_scene can active a while loop
+ */
+void change_flag(Scene *scene);
 
 #endif /* SCENE_H */
