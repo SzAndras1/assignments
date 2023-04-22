@@ -1,0 +1,31 @@
+<h1>Login</h1>
+<h3 *ngIf="successfulRegistration">
+  Successful Registration!
+</h3>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+      <mat-error *ngIf="loginForm.controls['username'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="loginForm.controls['username'].hasError('minlength')
+      && !loginForm.controls['username'].hasError('pattern')">Must be at least 3 characters
+      </mat-error>
+      <mat-error *ngIf="loginForm.controls['username'].hasError('pattern')">Only characters and numbers</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password">
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">You must enter a value</mat-error>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">Must be at least 3 characters</mat-error>
+    </mat-form-field>
+  </p>
+  <p *ngIf="error">
+    {{errorMessage}}
+  </p>
+  <p>
+    <button mat-button color="warn" type="submit" [disabled]="loginForm.status === 'INVALID'">Submit</button>
+  </p>
+</form>

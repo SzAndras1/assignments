@@ -64,7 +64,8 @@
               "browserTarget": "semesterproject:build:production"
             },
             "development": {
-              "browserTarget": "semesterproject:build:development"
+              "browserTarget": "semesterproject:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
