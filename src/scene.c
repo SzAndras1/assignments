@@ -26,7 +26,8 @@ void init_scene(Scene *scene) {
     scene->brightness = 0.0f;
 
     scene->angle = -2.0f;
-    scene->flag = false;
+    scene->animation_flag = false;
+    scene->guide_flag = false;
     scene->counter = 0;
 }
 
@@ -36,15 +37,16 @@ void load_models_init_scene(Scene *scene) {
 }
 
 void load_textures_init_scene(Scene *scene) {
-    scene->skybox_texture_id = load_texture("assets/textures/skybox/skybox.png");
-    scene->cube_texture_id = load_texture("assets/textures/cube.png");
-    scene->duck_texture_id = load_texture("assets/textures/duck.jpg");
+    scene->skybox_texture = load_texture("assets/textures/skybox/skybox.png");
+    scene->cube_texture = load_texture("assets/textures/cube.png");
+    scene->duck_texture = load_texture("assets/textures/duck.jpg");
+    scene->guide_texture = load_texture("assets/textures/guide.png");
 }
 
 void load_skybox(Scene scene) {
     glDisable(GL_LIGHTING);
 
-    glBindTexture(GL_TEXTURE_2D, scene.skybox_texture_id);
+    glBindTexture(GL_TEXTURE_2D, scene.skybox_texture);
 
     double theta, phi1, phi2;
     double x1, y1, z1;
@@ -95,14 +97,14 @@ void load_skybox(Scene scene) {
 
 void load_objects(Scene scene) {
     glPushMatrix();
-    glBindTexture(GL_TEXTURE_2D, scene.cube_texture_id);
+    glBindTexture(GL_TEXTURE_2D, scene.cube_texture);
     glTranslatef(5.0f,5.0f,0.0f);
     glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
     draw_model(&(scene.cube));
     glPopMatrix();
 
     glPushMatrix();
-    glBindTexture(GL_TEXTURE_2D, scene.duck_texture_id);
+    glBindTexture(GL_TEXTURE_2D, scene.duck_texture);
     glTranslatef(scene.angle,-3.0f,0.0f);
     glScalef(0.25f, 0.25f, 0.25f);
     draw_model(&(scene.duck));
@@ -148,18 +150,18 @@ void set_material(const Material *material) {
 }
 
 void update_scene(Scene *scene, double time) {
-    if(scene->flag){
+    if(scene->animation_flag){
         if(scene->counter % 2 == 0){
             scene->angle += 1.5f * (float) time;
             if(scene->angle >= 8.0f){
-                scene->flag = false;
+                scene->animation_flag = false;
                 scene->counter += 1;
             }
         }
         else{
             scene->angle -= 1.5f * (float) time;
             if(scene->angle <= -2.0f){
-                scene->flag = false;
+                scene->animation_flag = false;
                 scene->counter += 1;
             }
         }
@@ -192,10 +194,37 @@ void draw_origin() {
     glEnd();
 }
 
-void setBrightness(Scene *scene, float brightness) {
-    scene->brightness = brightness;
+void show_guide(GLuint texture) {
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_COLOR_MATERIAL);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3d(-2.0f, 1.5f, -3.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3d(2.0f, 1.5f, -3.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3d(2.0f, -1.5f, -3.0f);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3d(-2.0f, -1.5f, -3.0f);
+    glEnd();
+
+
+    glDisable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
 }
 
-void change_flag(Scene *scene){
-    scene->flag = true;
+void setBrightness(Scene *scene, float brightness) {
+    scene->brightness = brightness;
 }

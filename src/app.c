@@ -133,7 +133,10 @@ void handle_app_events(App *app) {
                     case SDL_SCANCODE_2:
                         setBrightness(&(app->scene), 0.1f);
                     case SDL_SCANCODE_Q:
-                        change_flag(&(app->scene));
+                        app->scene.animation_flag = !app->scene.animation_flag;
+                        break;
+                    case SDL_SCANCODE_TAB:
+                        app->scene.guide_flag = !app->scene.guide_flag;
                         break;
                     default:
                         break;
@@ -207,6 +210,10 @@ void render_app(App *app) {
 
     if (app->camera.is_preview_visible) {
         show_texture_preview();
+    }
+
+    if(app->scene.guide_flag){
+        show_guide(app->scene.guide_texture);
     }
 
     SDL_GL_SwapWindow(app->window);

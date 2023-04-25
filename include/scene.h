@@ -11,12 +11,14 @@ typedef struct Scene
     Model cube;
     Model duck;
     Material material;
-    GLuint skybox_texture_id;
-    GLuint cube_texture_id;
-    GLuint duck_texture_id;
+    GLuint skybox_texture;
+    GLuint cube_texture;
+    GLuint duck_texture;
+    GLuint guide_texture;
     float brightness;
     float angle;
-    bool flag;
+    bool animation_flag;
+    bool guide_flag;
     int counter;
 } Scene;
 
@@ -71,8 +73,8 @@ void load_textures_init_scene(Scene *scene);
  */
 void load_objects(Scene scene);
 /**
- * Change flag so update_scene can active a while loop
+ * Open a guide which contain the keyboard settings
  */
-void change_flag(Scene *scene);
+void show_guide(GLuint texture);
 
 #endif /* SCENE_H */
