@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL_image.h>
 
+void set_camera_for_animation(App *app);
+
 void init_app(App *app, int width, int height) {
     int error_code;
     int inited_loaders;
@@ -134,9 +136,13 @@ void handle_app_events(App *app) {
                         setBrightness(&(app->scene), 0.1f);
                     case SDL_SCANCODE_Q:
                         app->scene.animation_flag = !app->scene.animation_flag;
+                        set_camera_for_animation(app);
                         break;
                     case SDL_SCANCODE_TAB:
                         app->scene.guide_flag = !app->scene.guide_flag;
+                        break;
+                    case SDL_SCANCODE_R:
+                        test_with_console(*app);
                         break;
                     default:
                         break;
@@ -159,7 +165,6 @@ void handle_app_events(App *app) {
                     case SDL_SCANCODE_2:
                         setBrightness(&(app->scene), 0.0f);
                         break;
-
                     default:
                         break;
                 }
@@ -197,6 +202,12 @@ void update_app(App *app) {
 
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene), elapsed_time);
+
+    if (app->scene.path >= 5.0f) {
+        app->camera = app->saved_camera;
+    } else if (app->scene.path <= -3.0f) {
+        app->camera = app->saved_camera;
+    }
 }
 
 void render_app(App *app) {
@@ -212,7 +223,7 @@ void render_app(App *app) {
         show_texture_preview();
     }
 
-    if(app->scene.guide_flag){
+    if (app->scene.guide_flag) {
         show_guide(app->scene.guide_texture);
     }
 
@@ -229,4 +240,32 @@ void destroy_app(App *app) {
     }
 
     SDL_Quit();
+}
+
+void set_camera_for_animation(App *app) {
+    if (app->scene.animation_flag) {
+        app->saved_camera = app->camera;
+        app->camera.position.x = 15.71f;
+        app->camera.position.y = 17.23f;
+        app->camera.position.z = 10.0f;
+
+        app->camera.rotation.x = 343.0f;
+        app->camera.rotation.y = -8.0f;
+        app->camera.rotation.z = 245.0f;
+    } else {
+        app->camera = app->saved_camera;
+    }
+}
+
+void test_with_console(App app) {
+    printf("%f\n", app.camera.rotation.x);
+    printf("%f\n", app.camera.rotation.y);
+    printf("%f", app.camera.rotation.z);
+
+    printf("%f\n", app.camera.position.x);
+    printf("%f\n", app.camera.position.y);
+    printf("%f", app.camera.position.z);
+/*
+    printf("%d", app.scene.animation_flag);
+*/
 }

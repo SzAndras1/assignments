@@ -16,7 +16,7 @@ typedef struct Scene
     GLuint duck_texture;
     GLuint guide_texture;
     float brightness;
-    float angle;
+    float path;
     bool animation_flag;
     bool guide_flag;
     int counter;
@@ -56,22 +56,27 @@ void draw_origin();
  * Set the scene's brightness
  */
 void setBrightness(Scene *scene, float brightness);
+
 /**
  * Load skybox
  */
 void load_skybox(Scene scene);
+
 /**
  * Load models for init_scene function
  */
 void load_models_init_scene(Scene *scene);
+
 /**
  * Load textures for init_scene function
  */
 void load_textures_init_scene(Scene *scene);
+
 /**
  * Load objects
  */
 void load_objects(Scene scene);
+
 /**
  * Open a guide which contain the keyboard settings
  */

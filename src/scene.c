@@ -25,10 +25,11 @@ void init_scene(Scene *scene) {
     scene->material.shininess = 0.0f;
     scene->brightness = 0.0f;
 
-    scene->angle = -2.0f;
+    scene->path = -2.0f;
     scene->animation_flag = false;
-    scene->guide_flag = false;
     scene->counter = 0;
+
+    scene->guide_flag = false;
 }
 
 void load_models_init_scene(Scene *scene) {
@@ -98,14 +99,14 @@ void load_skybox(Scene scene) {
 void load_objects(Scene scene) {
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.cube_texture);
-    glTranslatef(5.0f,5.0f,0.0f);
+    glTranslatef(5.0f, 5.0f, 0.0f);
     glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
     draw_model(&(scene.cube));
     glPopMatrix();
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.duck_texture);
-    glTranslatef(scene.angle,-3.0f,0.0f);
+    glTranslatef(scene.path, -3.0f, 0.0f);
     glScalef(0.25f, 0.25f, 0.25f);
     draw_model(&(scene.duck));
     glPopMatrix();
@@ -150,17 +151,16 @@ void set_material(const Material *material) {
 }
 
 void update_scene(Scene *scene, double time) {
-    if(scene->animation_flag){
-        if(scene->counter % 2 == 0){
-            scene->angle += 1.5f * (float) time;
-            if(scene->angle >= 8.0f){
+    if (scene->animation_flag) {
+        if (scene->counter % 2 == 0) {
+            scene->path += 1.5f * (float) time;
+            if (scene->path >= 5.0f) {
                 scene->animation_flag = false;
                 scene->counter += 1;
             }
-        }
-        else{
-            scene->angle -= 1.5f * (float) time;
-            if(scene->angle <= -2.0f){
+        } else {
+            scene->path -= 1.5f * (float) time;
+            if (scene->path <= -3.0f) {
                 scene->animation_flag = false;
                 scene->counter += 1;
             }

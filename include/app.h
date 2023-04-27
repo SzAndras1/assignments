@@ -19,6 +19,7 @@ typedef struct App
     double uptime;
     Camera camera;
     Scene scene;
+    Camera saved_camera;
 } App;
 
 /**
@@ -55,5 +56,10 @@ void render_app(App* app);
  * Destroy the application.
  */
 void destroy_app(App* app);
+
+/**
+ * Hold printf functions for test purpose.
+ */
+void test_with_console(App app);
 
 #endif /* APP_H */
