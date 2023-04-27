@@ -25,9 +25,9 @@ void init_scene(Scene *scene) {
     scene->material.shininess = 0.0f;
     scene->brightness = 0.0f;
 
-    scene->path = -2.0f;
+    scene->animation_path = -2.0f;
     scene->animation_flag = false;
-    scene->counter = 0;
+    scene->animation_direction = true;
 
     scene->guide_flag = false;
 }
@@ -106,7 +106,7 @@ void load_objects(Scene scene) {
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.duck_texture);
-    glTranslatef(scene.path, -3.0f, 0.0f);
+    glTranslatef(scene.animation_path, -3.0f, 0.0f);
     glScalef(0.25f, 0.25f, 0.25f);
     draw_model(&(scene.duck));
     glPopMatrix();
@@ -152,17 +152,17 @@ void set_material(const Material *material) {
 
 void update_scene(Scene *scene, double time) {
     if (scene->animation_flag) {
-        if (scene->counter % 2 == 0) {
-            scene->path += 1.5f * (float) time;
-            if (scene->path >= 5.0f) {
+        if (scene->animation_direction) {
+            scene->animation_path += 1.5f * (float) time;
+            if (scene->animation_path >= 5.0f) {
                 scene->animation_flag = false;
-                scene->counter += 1;
+                scene->animation_direction = false;
             }
         } else {
-            scene->path -= 1.5f * (float) time;
-            if (scene->path <= -3.0f) {
+            scene->animation_path -= 1.5f * (float) time;
+            if (scene->animation_path <= -3.0f) {
                 scene->animation_flag = false;
-                scene->counter += 1;
+                scene->animation_direction = true;
             }
         }
     }

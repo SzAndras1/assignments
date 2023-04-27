@@ -16,10 +16,10 @@ typedef struct Scene
     GLuint duck_texture;
     GLuint guide_texture;
     float brightness;
-    float path;
+    float animation_path;
     bool animation_flag;
     bool guide_flag;
-    int counter;
+    bool animation_direction;
 } Scene;
 
 /**

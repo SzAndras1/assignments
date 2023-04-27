@@ -203,10 +203,17 @@ void update_app(App *app) {
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene), elapsed_time);
 
-    if (app->scene.path >= 5.0f) {
+    if (app->scene.animation_path >= 5.0f) {
         app->camera = app->saved_camera;
-    } else if (app->scene.path <= -3.0f) {
+    } else if (app->scene.animation_path <= -3.0f) {
         app->camera = app->saved_camera;
+    }
+    if (app->scene.animation_flag) {
+        if(app->scene.animation_direction){
+            app->camera.rotation.z += 0.01f;
+        } else {
+            app->camera.rotation.z -= 0.01f;
+        }
     }
 }
 
@@ -245,13 +252,24 @@ void destroy_app(App *app) {
 void set_camera_for_animation(App *app) {
     if (app->scene.animation_flag) {
         app->saved_camera = app->camera;
-        app->camera.position.x = 15.71f;
-        app->camera.position.y = 17.23f;
-        app->camera.position.z = 10.0f;
+        if(app->scene.animation_direction){
+            app->camera.position.x = 15.71f;
+            app->camera.position.y = 17.23f;
+            app->camera.position.z = 10.0f;
 
-        app->camera.rotation.x = 343.0f;
-        app->camera.rotation.y = -8.0f;
-        app->camera.rotation.z = 245.0f;
+            app->camera.rotation.x = 343.0f;
+            app->camera.rotation.y = -8.0f;
+            app->camera.rotation.z = 245.0f;
+        } else {
+            app->camera.position.x = 15.71f;
+            app->camera.position.y = 17.23f;
+            app->camera.position.z = 10.0f;
+
+            app->camera.rotation.x = 343.0f;
+            app->camera.rotation.y = -8.0f;
+            app->camera.rotation.z = 258.04f;
+        }
+
     } else {
         app->camera = app->saved_camera;
     }
@@ -261,10 +279,10 @@ void test_with_console(App app) {
     printf("%f\n", app.camera.rotation.x);
     printf("%f\n", app.camera.rotation.y);
     printf("%f", app.camera.rotation.z);
-
+/*
     printf("%f\n", app.camera.position.x);
     printf("%f\n", app.camera.position.y);
-    printf("%f", app.camera.position.z);
+    printf("%f", app.camera.position.z);*/
 /*
     printf("%d", app.scene.animation_flag);
 */
