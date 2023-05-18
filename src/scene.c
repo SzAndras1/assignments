@@ -26,6 +26,7 @@ void init_scene(Scene *scene) {
     scene->brightness = 0.0f;
 
     scene->animation_path = -2.0f;
+    scene->lever_rotate = 110.0f;
     scene->animation_flag = false;
     scene->animation_direction = true;
 
@@ -35,12 +36,16 @@ void init_scene(Scene *scene) {
 void load_models_init_scene(Scene *scene) {
     load_model(&(scene->cube), "assets/models/cube.obj");
     load_model(&(scene->duck), "assets/models/duck.obj");
+    load_model(&(scene->column), "assets/models/column.obj");
+    load_model(&(scene->lever), "assets/models/lever.obj");
 }
 
 void load_textures_init_scene(Scene *scene) {
     scene->skybox_texture = load_texture("assets/textures/skybox/skybox.png");
     scene->cube_texture = load_texture("assets/textures/cube.png");
     scene->duck_texture = load_texture("assets/textures/duck.jpg");
+    scene->column_texture = load_texture("assets/textures/column.png");
+    scene->lever_texture = load_texture("assets/textures/lever.png");
     scene->guide_texture = load_texture("assets/textures/guide.png");
 }
 
@@ -107,8 +112,25 @@ void load_objects(Scene scene) {
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.duck_texture);
     glTranslatef(scene.animation_path, -3.0f, 0.0f);
-    glScalef(0.25f, 0.25f, 0.25f);
+    glScalef(2.6f, 2.6f, 2.6f);
     draw_model(&(scene.duck));
+    glPopMatrix();
+
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene.column_texture);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glScalef(6.0f, 6.0f, 6.0f);
+    draw_model(&(scene.column));
+    glPopMatrix();
+
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene.lever_texture);
+    glRotatef(scene.lever_rotate, 1.0f, 0.0f, 0.0f);
+    glTranslatef(0.0f,-0.1f,0.0f);
+    glScalef(6.0f,6.0f,6.0f);
+    //glTranslatef(0.0f,0.0f,-0.2f);
+    //glTranslatef(1.0f,1.0f,1.0f);
+    draw_model(&(scene.lever));
     glPopMatrix();
 }
 
@@ -152,6 +174,9 @@ void set_material(const Material *material) {
 
 void update_scene(Scene *scene, double time) {
     if (scene->animation_flag) {
+        if(scene->lever_rotate >= 45.0f){
+            scene->lever_rotate -= 40.0f * (float) time;
+        }
         if (scene->animation_direction) {
             scene->animation_path += 1.5f * (float) time;
             if (scene->animation_path >= 5.0f) {
@@ -164,6 +189,10 @@ void update_scene(Scene *scene, double time) {
                 scene->animation_flag = false;
                 scene->animation_direction = true;
             }
+        }
+    } else {
+        if(scene->lever_rotate <= 126.0f){
+            scene->lever_rotate += 40.0f * (float) time;
         }
     }
 }

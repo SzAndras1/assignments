@@ -10,13 +10,18 @@ typedef struct Scene
 {
     Model cube;
     Model duck;
+    Model column;
+    Model lever;
     Material material;
     GLuint skybox_texture;
     GLuint cube_texture;
     GLuint duck_texture;
     GLuint guide_texture;
+    GLuint column_texture;
+    GLuint lever_texture;
     float brightness;
     float animation_path;
+    float lever_rotate;
     bool animation_flag;
     bool guide_flag;
     bool animation_direction;

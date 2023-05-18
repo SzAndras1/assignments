@@ -252,21 +252,18 @@ void destroy_app(App *app) {
 void set_camera_for_animation(App *app) {
     if (app->scene.animation_flag) {
         app->saved_camera = app->camera;
+        app->camera.position.x = 15.71f;
+        app->camera.position.y = 17.23f;
+        app->camera.position.z = 10.0f;
+
+        app->camera.rotation.x = 343.0f;
+        app->camera.rotation.y = -8.0f;
         if(app->scene.animation_direction){
-            app->camera.position.x = 15.71f;
-            app->camera.position.y = 17.23f;
-            app->camera.position.z = 10.0f;
-
-            app->camera.rotation.x = 343.0f;
-            app->camera.rotation.y = -8.0f;
+            // start position view
             app->camera.rotation.z = 245.0f;
-        } else {
-            app->camera.position.x = 15.71f;
-            app->camera.position.y = 17.23f;
-            app->camera.position.z = 10.0f;
 
-            app->camera.rotation.x = 343.0f;
-            app->camera.rotation.y = -8.0f;
+        } else {
+            // end position view
             app->camera.rotation.z = 258.04f;
         }
 
@@ -276,13 +273,15 @@ void set_camera_for_animation(App *app) {
 }
 
 void test_with_console(App app) {
-    printf("%f\n", app.camera.rotation.x);
+    printf("%f",app.scene.lever_rotate);
+/*    printf("%f\n", app.camera.rotation.x);
     printf("%f\n", app.camera.rotation.y);
-    printf("%f", app.camera.rotation.z);
+    printf("%f\n", app.camera.rotation.z);*/
+    printf("\n");
 /*
     printf("%f\n", app.camera.position.x);
     printf("%f\n", app.camera.position.y);
-    printf("%f", app.camera.position.z);*/
+    printf("%f\n", app.camera.position.z);*/
 /*
     printf("%d", app.scene.animation_flag);
 */
