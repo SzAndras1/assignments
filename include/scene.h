@@ -8,17 +8,17 @@
 
 typedef struct Scene
 {
-    Model cube;
-    Model duck;
     Model column;
     Model lever;
+    Model terrain;
+    Model dock_crane;
     Material material;
     GLuint skybox_texture;
-    GLuint cube_texture;
-    GLuint duck_texture;
     GLuint guide_texture;
     GLuint column_texture;
     GLuint lever_texture;
+    GLuint terrain_texture;
+    GLuint dock_crane_texture;
     float brightness;
     float animation_path;
     float lever_rotate;

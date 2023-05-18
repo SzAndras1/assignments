@@ -34,19 +34,17 @@ void init_scene(Scene *scene) {
 }
 
 void load_models_init_scene(Scene *scene) {
-    load_model(&(scene->cube), "assets/models/cube.obj");
-    load_model(&(scene->duck), "assets/models/duck.obj");
     load_model(&(scene->column), "assets/models/column.obj");
     load_model(&(scene->lever), "assets/models/lever.obj");
+    load_model(&(scene->dock_crane), "assets/models/dockcrane.obj");
 }
 
 void load_textures_init_scene(Scene *scene) {
     scene->skybox_texture = load_texture("assets/textures/skybox/skybox.png");
-    scene->cube_texture = load_texture("assets/textures/cube.png");
-    scene->duck_texture = load_texture("assets/textures/duck.jpg");
-    scene->column_texture = load_texture("assets/textures/column.png");
+    scene->column_texture = load_texture("assets/textures/metal.jpg");
     scene->lever_texture = load_texture("assets/textures/lever.png");
     scene->guide_texture = load_texture("assets/textures/guide.png");
+    scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
 }
 
 void load_skybox(Scene scene) {
@@ -103,33 +101,27 @@ void load_skybox(Scene scene) {
 
 void load_objects(Scene scene) {
     glPushMatrix();
-    glBindTexture(GL_TEXTURE_2D, scene.cube_texture);
-    glTranslatef(5.0f, 5.0f, 0.0f);
-    glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
-    draw_model(&(scene.cube));
+    glBindTexture(GL_TEXTURE_2D, scene.dock_crane_texture);
+    glRotatef(90.0f,1.0f,0.0f,0.0f);
+    glRotatef(90.0f,0.0f,1.0f,0.0f);
+    glTranslatef(-30.0f, 0.0f, scene.animation_path);
+    draw_model(&(scene.dock_crane));
     glPopMatrix();
 
-    glPushMatrix();
-    glBindTexture(GL_TEXTURE_2D, scene.duck_texture);
-    glTranslatef(scene.animation_path, -3.0f, 0.0f);
-    glScalef(2.6f, 2.6f, 2.6f);
-    draw_model(&(scene.duck));
-    glPopMatrix();
-
+    glEnable(GL_COLOR_MATERIAL);
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.column_texture);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glScalef(6.0f, 6.0f, 6.0f);
+    glTranslatef(0.0f,0.0f,2.0f);
     draw_model(&(scene.column));
     glPopMatrix();
+    glDisable(GL_COLOR_MATERIAL);
 
     glPushMatrix();
-    glBindTexture(GL_TEXTURE_2D, scene.lever_texture);
-    glRotatef(scene.lever_rotate, 1.0f, 0.0f, 0.0f);
-    glTranslatef(0.0f,-0.1f,0.0f);
     glScalef(6.0f,6.0f,6.0f);
-    //glTranslatef(0.0f,0.0f,-0.2f);
-    //glTranslatef(1.0f,1.0f,1.0f);
+    glTranslatef(0.0f,-1.96f,0.0f);
+    glRotatef(scene.lever_rotate, 1.0f, 0.0f, 0.0f);
     draw_model(&(scene.lever));
     glPopMatrix();
 }
@@ -179,7 +171,7 @@ void update_scene(Scene *scene, double time) {
         }
         if (scene->animation_direction) {
             scene->animation_path += 1.5f * (float) time;
-            if (scene->animation_path >= 5.0f) {
+            if (scene->animation_path >= 8.0f) {
                 scene->animation_flag = false;
                 scene->animation_direction = false;
             }

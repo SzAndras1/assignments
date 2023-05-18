@@ -203,7 +203,7 @@ void update_app(App *app) {
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene), elapsed_time);
 
-    if (app->scene.animation_path >= 5.0f) {
+    if (app->scene.animation_path >= 8.0f) {
         app->camera = app->saved_camera;
     } else if (app->scene.animation_path <= -3.0f) {
         app->camera = app->saved_camera;
