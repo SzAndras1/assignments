@@ -37,6 +37,7 @@ void load_models_init_scene(Scene *scene) {
     load_model(&(scene->column), "assets/models/column.obj");
     load_model(&(scene->lever), "assets/models/lever.obj");
     load_model(&(scene->dock_crane), "assets/models/dockcrane.obj");
+    load_model(&(scene->terrain), "assets/models/terrain.obj");
 }
 
 void load_textures_init_scene(Scene *scene) {
@@ -45,6 +46,7 @@ void load_textures_init_scene(Scene *scene) {
     scene->lever_texture = load_texture("assets/textures/lever.png");
     scene->guide_texture = load_texture("assets/textures/guide.png");
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
+    scene->terrain_texture = load_texture("assets/textures/sand.jpg");
 }
 
 void load_skybox(Scene scene) {
@@ -100,6 +102,7 @@ void load_skybox(Scene scene) {
 }
 
 void load_objects(Scene scene) {
+
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.dock_crane_texture);
     glRotatef(90.0f,1.0f,0.0f,0.0f);
@@ -113,16 +116,24 @@ void load_objects(Scene scene) {
     glBindTexture(GL_TEXTURE_2D, scene.column_texture);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glScalef(6.0f, 6.0f, 6.0f);
-    glTranslatef(0.0f,0.0f,2.0f);
+    glTranslatef(0.0f,-0.06f,2.0f);
     draw_model(&(scene.column));
     glPopMatrix();
     glDisable(GL_COLOR_MATERIAL);
 
     glPushMatrix();
     glScalef(6.0f,6.0f,6.0f);
-    glTranslatef(0.0f,-1.96f,0.0f);
+    glTranslatef(0.0f,-1.96f,-0.06f);
     glRotatef(scene.lever_rotate, 1.0f, 0.0f, 0.0f);
     draw_model(&(scene.lever));
+    glPopMatrix();
+
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene.terrain_texture);
+    glRotatef(90.0f,1.0f,0.0f,0.0f);
+    glTranslatef(0.0f,-3.5f,0.0f);
+    glScalef(4.0f,4.0f,4.0f);
+    draw_model(&(scene.terrain));
     glPopMatrix();
 }
 
@@ -192,7 +203,6 @@ void update_scene(Scene *scene, double time) {
 void render_scene(const Scene *scene) {
     set_material(&(scene->material));
     set_lighting();
-    draw_origin();
     load_skybox(*scene);
     load_objects(*scene);
 }
