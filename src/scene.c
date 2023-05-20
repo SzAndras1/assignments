@@ -43,6 +43,7 @@ void load_models_init_scene(Scene *scene) {
     load_model(&(scene->terrain), "assets/models/terrain.obj");
     load_model(&(scene->cart), "assets/models/cart.obj");
     load_model(&(scene->gate), "assets/models/gate.obj");
+    load_model(&(scene->character), "assets/models/character.obj");
 }
 
 void load_textures_init_scene(Scene *scene) {
@@ -52,6 +53,7 @@ void load_textures_init_scene(Scene *scene) {
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
     scene->terrain_texture = load_texture("assets/textures/sand.jpg");
     scene->black_texture = load_texture("assets/textures/blackscreen.png");
+    scene->black_texture = load_texture("assets/textures/heyyou.png");
 }
 
 void load_skybox(Scene scene) {
@@ -162,6 +164,13 @@ void load_objects_alternative(Scene scene) {
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glTranslatef(scene.cart_path, 1.0f, 0.0f);
     draw_model(&(scene.cart));
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(scene.cart_path*3+4,2.2f,4.67f);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+    draw_model(&(scene.character));
     glPopMatrix();
 }
 
@@ -328,4 +337,8 @@ void draw_water(void){
 
     glBlendFunc(GL_ONE,GL_ZERO);
     glDisable(GL_BLEND);
+}
+
+void draw_text(void) {
+
 }

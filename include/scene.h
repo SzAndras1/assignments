@@ -14,6 +14,7 @@ typedef struct Scene
     Model dock_crane;
     Model cart;
     Model gate;
+    Model character;
     Material material;
     GLuint skybox_texture;
     GLuint guide_texture;
@@ -21,6 +22,7 @@ typedef struct Scene
     GLuint terrain_texture;
     GLuint dock_crane_texture;
     GLuint black_texture;
+    GLuint text_texture;
     float cart_path;
     float brightness;
     float animation_path;
@@ -103,5 +105,9 @@ void set_mist(void);
  * Draw water in the corner
  */
 void draw_water(void);
+/**
+ * Draw text in alternative world
+ */
+void draw_text(void);
 
 #endif /* SCENE_H */
