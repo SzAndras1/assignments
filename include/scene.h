@@ -95,5 +95,9 @@ void show_guide(GLuint texture);
  * Load objects in the alternative world
  */
 void load_objects_alternative(Scene scene);
+/**
+ * Set mist in the alternative world
+ */
+void set_mist(void);
 
 #endif /* SCENE_H */

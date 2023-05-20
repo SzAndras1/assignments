@@ -48,7 +48,6 @@ void load_models_init_scene(Scene *scene) {
 void load_textures_init_scene(Scene *scene) {
     scene->skybox_texture = load_texture("assets/textures/skybox/skybox.png");
     scene->column_texture = load_texture("assets/textures/metal.jpg");
-    scene->lever_texture = load_texture("assets/textures/lever.png");
     scene->guide_texture = load_texture("assets/textures/guide.png");
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
     scene->terrain_texture = load_texture("assets/textures/sand.jpg");
@@ -204,6 +203,15 @@ void set_material(const Material *material) {
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &(material->shininess));
 }
 
+void set_mist(void) {
+    glEnable(GL_FOG);
+    glFogf(GL_FOG_MODE, GL_LINEAR);   // Set fog mode to linear
+    glFogf(GL_FOG_START, 5.0f);       // Set fog start distance
+    glFogf(GL_FOG_END, 15.0f);        // Set fog end distance
+    GLfloat fogColor[4] = {0.5f, 0.5f, 0.5f, 1.0f}; // Set fog color
+    glFogfv(GL_FOG_COLOR, fogColor);
+}
+
 void update_scene(Scene *scene, double time) {
     if (scene->animation_flag) {
         if (scene->lever_rotate >= 45.0f) {
@@ -240,10 +248,11 @@ void render_scene(const Scene *scene) {
         load_objects(*scene);
     } else {
         load_objects_alternative(*scene);
+        set_mist();
     }
 }
 
-void draw_origin() {
+void draw_origin(void) {
     glBegin(GL_LINES);
 
     glColor3f(1, 0, 0);
