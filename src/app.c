@@ -124,7 +124,7 @@ void handle_app_events(App *app) {
                         set_camera_side_speed(&(app->camera), !app->scene.teleportation_flag ? -15 : 0);
                         break;
                     case SDL_SCANCODE_SPACE:
-                        set_camera_speed_z(&(app->camera), !app->scene.teleportation_flag ? 4 : 0);
+                        set_camera_speed_z(&(app->camera), !app->scene.teleportation_flag ? -4 : 0);
                         break;
                     case SDL_SCANCODE_LSHIFT:
                         set_camera_speed_z(&(app->camera), !app->scene.teleportation_flag ? 4 : 0);
@@ -203,7 +203,7 @@ void update_app(App *app) {
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene), elapsed_time);
 
-    if (app->scene.animation_path >= 8.0f) {
+    if (app->scene.animation_path >= 15.0f) {
         app->camera = app->saved_camera;
     } else if (app->scene.animation_path <= -3.0f) {
         app->camera = app->saved_camera;
@@ -277,7 +277,7 @@ void set_camera_for_animation(App *app) {
 
         } else {
             // end position view
-            app->camera.rotation.z = 258.04f;
+            app->camera.rotation.z = 269.04f;
         }
 
     } else {
@@ -295,8 +295,8 @@ void test_with_console(App app) {
     //printf("%f",app.scene.lever_rotate);
 /*    printf("%f\n", app.camera.rotation.x);
     printf("%f\n", app.camera.rotation.y);
-    printf("%f\n", app.camera.rotation.z);*/
-    printf("\n");
+    printf("%f\n", app.camera.rotation.z);
+    printf("\n");*/
     printf("%f\n", app.camera.position.x);
     printf("%f\n", app.camera.position.y);
     printf("%f\n", app.camera.position.z);

@@ -205,11 +205,12 @@ void set_material(const Material *material) {
 
 void set_mist(void) {
     glEnable(GL_FOG);
-    glFogf(GL_FOG_MODE, GL_LINEAR);   // Set fog mode to linear
+    glFogf(GL_FOG_MODE, GL_EXP);   // Set fog mode to linear
     glFogf(GL_FOG_START, 5.0f);       // Set fog start distance
     glFogf(GL_FOG_END, 15.0f);        // Set fog end distance
     GLfloat fogColor[4] = {0.5f, 0.5f, 0.5f, 1.0f}; // Set fog color
     glFogfv(GL_FOG_COLOR, fogColor);
+    glFogf(GL_FOG_DENSITY, 0.05f);
 }
 
 void update_scene(Scene *scene, double time) {
@@ -219,7 +220,7 @@ void update_scene(Scene *scene, double time) {
         }
         if (scene->animation_direction) {
             scene->animation_path += 1.5f * (float) time;
-            if (scene->animation_path >= 8.0f) {
+            if (scene->animation_path >= 15.0f) {
                 scene->animation_flag = false;
                 scene->animation_direction = false;
             }
@@ -246,6 +247,7 @@ void render_scene(const Scene *scene) {
     load_skybox(*scene);
     if (!scene->teleportation_flag) {
         load_objects(*scene);
+        draw_water();
     } else {
         load_objects_alternative(*scene);
         set_mist();
@@ -303,4 +305,27 @@ void show_guide(GLuint texture) {
 
 void setBrightness(Scene *scene, float brightness) {
     scene->brightness = brightness;
+}
+
+void draw_water(void){
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glColor4f(0.0f, 0.4f, 0.8f, 0.5f);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(-62.0f, 57.0f, -5.0f);
+
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(-62.0f, 22.0f, -5.0f);
+
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(-22.0f, 22.0f, -5.0f);
+
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(-22.0f, 65.0f, -5.0f);
+    glEnd();
+
+    glBlendFunc(GL_ONE,GL_ZERO);
+    glDisable(GL_BLEND);
 }

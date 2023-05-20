@@ -99,5 +99,9 @@ void load_objects_alternative(Scene scene);
  * Set mist in the alternative world
  */
 void set_mist(void);
+/**
+ * Draw water in the corner
+ */
+void draw_water(void);
 
 #endif /* SCENE_H */
