@@ -108,6 +108,6 @@ void draw_water(void);
 /**
  * Draw text in alternative world
  */
-void draw_text(void);
+void draw_text(Scene scene);
 
 #endif /* SCENE_H */

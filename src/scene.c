@@ -53,7 +53,7 @@ void load_textures_init_scene(Scene *scene) {
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
     scene->terrain_texture = load_texture("assets/textures/sand.jpg");
     scene->black_texture = load_texture("assets/textures/blackscreen.png");
-    scene->black_texture = load_texture("assets/textures/heyyou.png");
+    scene->text_texture = load_transparent_texture("assets/textures/asd.png");
 }
 
 void load_skybox(Scene scene) {
@@ -259,6 +259,7 @@ void render_scene(const Scene *scene) {
         draw_water();
     } else {
         load_objects_alternative(*scene);
+        draw_text(*scene);
         set_mist();
     }
 }
@@ -339,6 +340,25 @@ void draw_water(void){
     glDisable(GL_BLEND);
 }
 
-void draw_text(void) {
+void draw_text(Scene scene) {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_CULL_FACE);
+    glBindTexture(GL_TEXTURE_2D,scene.text_texture);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(scene.cart_path*3+10, -1.0f, 8.0f);
 
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(scene.cart_path*3, -1.0f, 8.0f);
+
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(scene.cart_path*3, -1.0f, 6.0f);
+
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(scene.cart_path*3+10, -1.0f, 6.0f);
+    glEnd();
+    glBlendFunc(GL_ONE,GL_ZERO);
+    glDisable(GL_BLEND);
+    glEnable(GL_CULL_FACE);
 }
