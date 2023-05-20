@@ -61,5 +61,9 @@ void destroy_app(App* app);
  * Hold printf functions for test purpose.
  */
 void test_with_console(App app);
+/**
+ * Teleport to the cart
+ */
+void teleport_to_cart(App *app);
 
 #endif /* APP_H */

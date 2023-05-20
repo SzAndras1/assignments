@@ -12,19 +12,24 @@ typedef struct Scene
     Model lever;
     Model terrain;
     Model dock_crane;
+    Model cart;
+    Model gate;
     Material material;
     GLuint skybox_texture;
     GLuint guide_texture;
     GLuint column_texture;
-    GLuint lever_texture;
     GLuint terrain_texture;
     GLuint dock_crane_texture;
+    GLuint black_texture;
+    float cart_path;
     float brightness;
     float animation_path;
     float lever_rotate;
+    int black_duration_time;
     bool animation_flag;
     bool guide_flag;
     bool animation_direction;
+    bool teleportation_flag;
 } Scene;
 
 /**
@@ -86,5 +91,9 @@ void load_objects(Scene scene);
  * Open a guide which contain the keyboard settings
  */
 void show_guide(GLuint texture);
+/**
+ * Load objects in the alternative world
+ */
+void load_objects_alternative(Scene scene);
 
 #endif /* SCENE_H */

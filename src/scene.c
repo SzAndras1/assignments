@@ -31,6 +31,9 @@ void init_scene(Scene *scene) {
     scene->animation_direction = true;
 
     scene->guide_flag = false;
+    scene->teleportation_flag = false;
+    scene->black_duration_time = 0;
+    scene->cart_path = -20.0f;
 }
 
 void load_models_init_scene(Scene *scene) {
@@ -38,6 +41,8 @@ void load_models_init_scene(Scene *scene) {
     load_model(&(scene->lever), "assets/models/lever.obj");
     load_model(&(scene->dock_crane), "assets/models/dockcrane.obj");
     load_model(&(scene->terrain), "assets/models/terrain.obj");
+    load_model(&(scene->cart), "assets/models/cart.obj");
+    load_model(&(scene->gate), "assets/models/gate.obj");
 }
 
 void load_textures_init_scene(Scene *scene) {
@@ -47,6 +52,7 @@ void load_textures_init_scene(Scene *scene) {
     scene->guide_texture = load_texture("assets/textures/guide.png");
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
     scene->terrain_texture = load_texture("assets/textures/sand.jpg");
+    scene->black_texture = load_texture("assets/textures/blackscreen.png");
 }
 
 void load_skybox(Scene scene) {
@@ -102,11 +108,10 @@ void load_skybox(Scene scene) {
 }
 
 void load_objects(Scene scene) {
-
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.dock_crane_texture);
-    glRotatef(90.0f,1.0f,0.0f,0.0f);
-    glRotatef(90.0f,0.0f,1.0f,0.0f);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
     glTranslatef(-30.0f, 0.0f, scene.animation_path);
     draw_model(&(scene.dock_crane));
     glPopMatrix();
@@ -116,24 +121,48 @@ void load_objects(Scene scene) {
     glBindTexture(GL_TEXTURE_2D, scene.column_texture);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glScalef(6.0f, 6.0f, 6.0f);
-    glTranslatef(0.0f,-0.06f,2.0f);
+    glTranslatef(0.0f, -0.06f, 2.0f);
     draw_model(&(scene.column));
     glPopMatrix();
-    glDisable(GL_COLOR_MATERIAL);
 
     glPushMatrix();
-    glScalef(6.0f,6.0f,6.0f);
-    glTranslatef(0.0f,-1.96f,-0.06f);
+    glScalef(6.0f, 6.0f, 6.0f);
+    glTranslatef(0.0f, -1.96f, -0.06f);
     glRotatef(scene.lever_rotate, 1.0f, 0.0f, 0.0f);
     draw_model(&(scene.lever));
     glPopMatrix();
 
     glPushMatrix();
     glBindTexture(GL_TEXTURE_2D, scene.terrain_texture);
-    glRotatef(90.0f,1.0f,0.0f,0.0f);
-    glTranslatef(0.0f,-3.5f,0.0f);
-    glScalef(4.0f,4.0f,4.0f);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glTranslatef(0.0f, -3.5f, 0.0f);
+    glScalef(4.0f, 4.0f, 4.0f);
     draw_model(&(scene.terrain));
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(26.0f, 38.0f, -3.55f);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
+    draw_model(&(scene.gate));
+    glPopMatrix();
+}
+
+void load_objects_alternative(Scene scene) {
+    glEnable(GL_COLOR_MATERIAL);
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D, scene.terrain_texture);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glTranslatef(0.0f, -3.5f, 0.0f);
+    glScalef(4.0f, 4.0f, 4.0f);
+    draw_model(&(scene.terrain));
+    glPopMatrix();
+
+    glPushMatrix();
+    glScalef(3.0f, 3.0f, 3.0f);
+    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+    glTranslatef(scene.cart_path, 1.0f, 0.0f);
+    draw_model(&(scene.cart));
     glPopMatrix();
 }
 
@@ -177,7 +206,7 @@ void set_material(const Material *material) {
 
 void update_scene(Scene *scene, double time) {
     if (scene->animation_flag) {
-        if(scene->lever_rotate >= 45.0f){
+        if (scene->lever_rotate >= 45.0f) {
             scene->lever_rotate -= 40.0f * (float) time;
         }
         if (scene->animation_direction) {
@@ -194,9 +223,12 @@ void update_scene(Scene *scene, double time) {
             }
         }
     } else {
-        if(scene->lever_rotate <= 126.0f){
+        if (scene->lever_rotate <= 126.0f) {
             scene->lever_rotate += 40.0f * (float) time;
         }
+    }
+    if (scene->teleportation_flag && scene->black_duration_time == 150) {
+        scene->cart_path += 0.004f;
     }
 }
 
@@ -204,7 +236,11 @@ void render_scene(const Scene *scene) {
     set_material(&(scene->material));
     set_lighting();
     load_skybox(*scene);
-    load_objects(*scene);
+    if (!scene->teleportation_flag) {
+        load_objects(*scene);
+    } else {
+        load_objects_alternative(*scene);
+    }
 }
 
 void draw_origin() {
@@ -239,13 +275,13 @@ void show_guide(GLuint texture) {
 
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex3d(-2.0f, 1.5f, -3.0f);
+    glVertex3d(-2.5f, 2.0f, -3.0f);
     glTexCoord2f(1.0f, 0.0f);
-    glVertex3d(2.0f, 1.5f, -3.0f);
+    glVertex3d(2.5f, 2.0f, -3.0f);
     glTexCoord2f(1.0f, 1.0f);
-    glVertex3d(2.0f, -1.5f, -3.0f);
+    glVertex3d(2.5f, -2.0f, -3.0f);
     glTexCoord2f(0.0f, 1.0f);
-    glVertex3d(-2.0f, -1.5f, -3.0f);
+    glVertex3d(-2.5f, -2.0f, -3.0f);
     glEnd();
 
 
