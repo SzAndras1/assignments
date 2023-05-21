@@ -54,7 +54,7 @@ void load_models_init_scene(Scene *scene) {
 void load_textures_init_scene(Scene *scene) {
     scene->skybox_texture = load_texture("assets/textures/skybox/skybox.png");
     scene->column_texture = load_texture("assets/textures/metal.jpg");
-    scene->guide_texture = load_texture("assets/textures/guide.png");
+    scene->guide_texture = load_texture("assets/textures/guide.jpg");
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
     scene->terrain_texture = load_texture("assets/textures/sand.jpg");
     scene->black_texture = load_texture("assets/textures/blackscreen.png");
