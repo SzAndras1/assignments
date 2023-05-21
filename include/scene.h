@@ -28,10 +28,12 @@ typedef struct Scene
     float animation_path;
     float lever_rotate;
     int black_duration_time;
+    float diffuse[3];
     bool animation_flag;
     bool guide_flag;
     bool animation_direction;
     bool teleportation_flag;
+    bool darkness_flag;
 } Scene;
 
 /**
@@ -42,7 +44,7 @@ void init_scene(Scene* scene);
 /**
  * Set the lighting of the scene.
  */
-void set_lighting();
+void set_lighting(const Scene* scene);
 
 /**
  * Set the current material.
@@ -93,18 +95,22 @@ void load_objects(Scene scene);
  * Open a guide which contain the keyboard settings
  */
 void show_guide(GLuint texture);
+
 /**
  * Load objects in the alternative world
  */
 void load_objects_alternative(Scene scene);
+
 /**
  * Set mist in the alternative world
  */
 void set_mist(void);
+
 /**
  * Draw water in the corner
  */
 void draw_water(void);
+
 /**
  * Draw text in alternative world
  */

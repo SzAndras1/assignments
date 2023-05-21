@@ -134,6 +134,7 @@ void handle_app_events(App *app) {
                         break;
                     case SDL_SCANCODE_2:
                         setBrightness(&(app->scene), 0.1f);
+                        break;
                     case SDL_SCANCODE_Q:
                         app->scene.animation_flag = !app->scene.animation_flag;
                         set_camera_for_animation(app);
@@ -297,9 +298,9 @@ void test_with_console(App app) {
     printf("%f\n", app.camera.rotation.y);
     printf("%f\n", app.camera.rotation.z);
     printf("\n");*/
-    printf("%f\n", app.camera.position.x);
+    /*printf("%f\n", app.camera.position.x);
     printf("%f\n", app.camera.position.y);
-    printf("%f\n", app.camera.position.z);
+    printf("%f\n", app.camera.position.z);*/
 /*
     printf("%d", app.scene.animation_flag);
 */

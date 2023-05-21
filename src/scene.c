@@ -32,8 +32,13 @@ void init_scene(Scene *scene) {
 
     scene->guide_flag = false;
     scene->teleportation_flag = false;
+    scene->darkness_flag = false;
     scene->black_duration_time = 0;
     scene->cart_path = -20.0f;
+
+    scene->diffuse[0] = 1.0f;
+    scene->diffuse[1] = 1.0f;
+    scene->diffuse[2] = 1.0f;
 }
 
 void load_models_init_scene(Scene *scene) {
@@ -53,7 +58,7 @@ void load_textures_init_scene(Scene *scene) {
     scene->dock_crane_texture = load_texture("assets/textures/dockcrane.jpg");
     scene->terrain_texture = load_texture("assets/textures/sand.jpg");
     scene->black_texture = load_texture("assets/textures/blackscreen.png");
-    scene->text_texture = load_transparent_texture("assets/textures/asd.png");
+    scene->text_texture = load_transparent_texture("assets/textures/heyyou.png");
 }
 
 void load_skybox(Scene scene) {
@@ -174,9 +179,9 @@ void load_objects_alternative(Scene scene) {
     glPopMatrix();
 }
 
-void set_lighting() {
+void set_lighting(const Scene *scene) {
     float ambient_light[] = {0.0f, 0.0f, 0.0f, 1.0f};
-    float diffuse_light[] = {1.0f, 1.0f, 1.0f, 1.0f};
+    float diffuse_light[] = {scene->diffuse[0], scene->diffuse[1], scene->diffuse[2], 1.0f};
     float specular_light[] = {0.0f, 0.0f, 0.0f, 1.0f};
     float position[] = {0.0f, 0.0f, 50.0f, 1.0f};
 
@@ -248,11 +253,24 @@ void update_scene(Scene *scene, double time) {
     if (scene->teleportation_flag && scene->black_duration_time == 150) {
         scene->cart_path += 0.004f;
     }
+
+    if(scene->teleportation_flag){
+        if(!scene->darkness_flag) {
+            scene->diffuse[0] = 0.02f;
+            scene->diffuse[1] = 0.02f;
+            scene->diffuse[2] = 0.02f;
+            scene->darkness_flag = true;
+        }
+    }
+
+    scene->diffuse[0] += scene->brightness * (float) time;
+    scene->diffuse[1] += scene->brightness * (float) time;
+    scene->diffuse[2] += scene->brightness * (float) time;
 }
 
 void render_scene(const Scene *scene) {
     set_material(&(scene->material));
-    set_lighting();
+    set_lighting(scene);
     load_skybox(*scene);
     if (!scene->teleportation_flag) {
         load_objects(*scene);
