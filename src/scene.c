@@ -39,9 +39,13 @@ void init_scene(Scene *scene) {
     scene->black_duration_time = 0;
     scene->cart_path = -20.0f;
 
-    scene->diffuse[0] = 1.0f;
-    scene->diffuse[1] = 1.0f;
-    scene->diffuse[2] = 1.0f;
+    set_diffuse_values(scene,1.0f);
+}
+
+void set_diffuse_values(Scene *scene, float value) {
+    scene->diffuse[0] = value;
+    scene->diffuse[1] = value;
+    scene->diffuse[2] = value;
 }
 
 void load_models_init_scene(Scene *scene) {
@@ -259,9 +263,7 @@ void update_scene(Scene *scene, double time) {
 
     if (scene->teleportation_flag) {
         if (!scene->darkness_flag) {
-            scene->diffuse[0] = 0.02f;
-            scene->diffuse[1] = 0.02f;
-            scene->diffuse[2] = 0.02f;
+            set_diffuse_values(scene,0.02f);
             scene->darkness_flag = true;
         }
     }

@@ -153,6 +153,15 @@ void handle_app_events(App *app) {
                             set_camera_for_animation(app);
                         }
                         break;
+                    case SDL_SCANCODE_T:
+                        if(app->scene.teleportation_flag){
+                            glDisable(GL_FOG);
+                            app->scene.cart_path =-20.0f;
+                            app->scene.black_duration_time = 0;
+                            app->scene.teleportation_flag = false;
+                            set_diffuse_values(&(app->scene),1.0f);
+                        }
+                        break;
                     case SDL_SCANCODE_TAB:
                         app->scene.guide_flag = !app->scene.guide_flag;
                         break;
@@ -264,6 +273,7 @@ void render_app(App *app) {
         teleport_to_cart(app);
         app->scene.black_duration_time++;
     } else if (app->scene.teleportation_flag && app->scene.black_duration_time == 150) {
+        app->scene.darkness_flag = false;
         app->camera.position.x += 0.012f;
     }
 

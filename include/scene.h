@@ -122,4 +122,9 @@ void draw_text(Scene scene);
  */
 void setMovement(Scene* scene, float value);
 
+/**
+ * Set diffuse values for lightning
+ */
+void set_diffuse_values(Scene *scene, float value);
+
 #endif /* SCENE_H */
