@@ -34,6 +34,7 @@ typedef struct Scene
     bool animation_direction;
     bool teleportation_flag;
     bool darkness_flag;
+    bool manual_movement_flag;
 } Scene;
 
 /**
@@ -115,5 +116,10 @@ void draw_water(void);
  * Draw text in alternative world
  */
 void draw_text(Scene scene);
+
+/**
+ * Set dock crane's movement position
+ */
+void setMovement(Scene* scene, float value);
 
 #endif /* SCENE_H */

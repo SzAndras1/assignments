@@ -61,9 +61,20 @@ void destroy_app(App* app);
  * Hold printf functions for test purpose.
  */
 void test_with_console(App app);
+
 /**
  * Teleport to the cart
  */
 void teleport_to_cart(App *app);
+
+/**
+ * Set camera posistion for animation landscape
+ */
+void set_camera_for_animation(App *app);
+
+/**
+ * Set camera position for manual movement landscape
+ */
+void set_camera_for_manual_movement(App *app);
 
 #endif /* APP_H */

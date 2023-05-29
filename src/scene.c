@@ -30,7 +30,10 @@ void init_scene(Scene *scene) {
     scene->animation_flag = false;
     scene->animation_direction = true;
 
+    scene->manual_movement_flag = false;
+
     scene->guide_flag = false;
+
     scene->teleportation_flag = false;
     scene->darkness_flag = false;
     scene->black_duration_time = 0;
@@ -172,7 +175,7 @@ void load_objects_alternative(Scene scene) {
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(scene.cart_path*3+4,2.2f,4.67f);
+    glTranslatef(scene.cart_path * 3 + 4, 2.2f, 4.67f);
     glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
     glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
     draw_model(&(scene.character));
@@ -254,8 +257,8 @@ void update_scene(Scene *scene, double time) {
         scene->cart_path += 0.004f;
     }
 
-    if(scene->teleportation_flag){
-        if(!scene->darkness_flag) {
+    if (scene->teleportation_flag) {
+        if (!scene->darkness_flag) {
             scene->diffuse[0] = 0.02f;
             scene->diffuse[1] = 0.02f;
             scene->diffuse[2] = 0.02f;
@@ -314,13 +317,13 @@ void show_guide(GLuint texture) {
 
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex3d(-2.5f, 2.0f, -3.0f);
+    glVertex3d(-2.5f, 1.8f, -3.0f);
     glTexCoord2f(1.0f, 0.0f);
-    glVertex3d(2.5f, 2.0f, -3.0f);
+    glVertex3d(2.5f, 1.8f, -3.0f);
     glTexCoord2f(1.0f, 1.0f);
-    glVertex3d(2.5f, -2.0f, -3.0f);
+    glVertex3d(2.5f, -1.8f, -3.0f);
     glTexCoord2f(0.0f, 1.0f);
-    glVertex3d(-2.5f, -2.0f, -3.0f);
+    glVertex3d(-2.5f, -1.8f, -3.0f);
     glEnd();
 
 
@@ -335,7 +338,7 @@ void setBrightness(Scene *scene, float brightness) {
     scene->brightness = brightness;
 }
 
-void draw_water(void){
+void draw_water(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glColor4f(0.0f, 0.4f, 0.8f, 0.5f);
@@ -354,7 +357,7 @@ void draw_water(void){
     glVertex3f(-22.0f, 65.0f, -5.0f);
     glEnd();
 
-    glBlendFunc(GL_ONE,GL_ZERO);
+    glBlendFunc(GL_ONE, GL_ZERO);
     glDisable(GL_BLEND);
 }
 
@@ -362,21 +365,25 @@ void draw_text(Scene scene) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_CULL_FACE);
-    glBindTexture(GL_TEXTURE_2D,scene.text_texture);
+    glBindTexture(GL_TEXTURE_2D, scene.text_texture);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(scene.cart_path*3+10, -1.0f, 8.0f);
+    glVertex3f(scene.cart_path * 3 + 10, -1.0f, 8.0f);
 
     glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(scene.cart_path*3, -1.0f, 8.0f);
+    glVertex3f(scene.cart_path * 3, -1.0f, 8.0f);
 
     glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(scene.cart_path*3, -1.0f, 6.0f);
+    glVertex3f(scene.cart_path * 3, -1.0f, 6.0f);
 
     glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(scene.cart_path*3+10, -1.0f, 6.0f);
+    glVertex3f(scene.cart_path * 3 + 10, -1.0f, 6.0f);
     glEnd();
-    glBlendFunc(GL_ONE,GL_ZERO);
+    glBlendFunc(GL_ONE, GL_ZERO);
     glDisable(GL_BLEND);
     glEnable(GL_CULL_FACE);
+}
+
+void setMovement(Scene *scene, float value) {
+    scene->animation_path += value;
 }
