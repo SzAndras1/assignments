@@ -69,7 +69,7 @@ void load_textures_init_scene(Scene *scene) {
 }
 
 void load_skybox(Scene scene) {
-    glDisable(GL_LIGHTING);
+    //glDisable(GL_LIGHTING);
 
     glBindTexture(GL_TEXTURE_2D, scene.skybox_texture);
 
@@ -106,10 +106,27 @@ void load_skybox(Scene scene) {
             x2 = cos(theta) * cos(phi2);
             y2 = sin(theta) * cos(phi2);
             z2 = sin(phi2) - 0.25;
+            double nx1 = cos(theta) * cos(phi1);
+            double ny1 = sin(theta) * cos(phi1);
+            double nz1 = sin(phi1) - 0.25;
+            double nx2 = cos(theta) * cos(phi2);
+            double ny2 = sin(theta) * cos(phi2);
+            double nz2 = sin(phi2) - 0.25;
+
+            double length1 = sqrt(nx1 * nx1 + ny1 * ny1 + nz1 * nz1);
+            nx1 /= length1;
+            ny1 /= length1;
+            nz1 /= length1;
+            double length2 = sqrt(nx2 * nx2 + ny2 * ny2 + nz2 * nz2);
+            nx2 /= length2;
+            ny2 /= length2;
+            nz2 /= length2;
             glTexCoord2d(u, 1.0 - v1);
             glVertex3d(x1, y1, z1);
+            glNormal3d(-nx1,-ny1,-nz1);
             glTexCoord2d(u, 1.0 - v2);
             glVertex3d(x2, y2, z2);
+            glNormal3d(-nx2,-ny2,-nz2);
         }
     }
 
@@ -117,7 +134,7 @@ void load_skybox(Scene scene) {
 
     glPopMatrix();
 
-    glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHTING);
 }
 
 void load_objects(Scene scene) {
