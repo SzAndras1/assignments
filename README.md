@@ -29,6 +29,9 @@ Az összes objektumot én csináltam Blender-ben.
 |     S     |                 Hátra                 |
 |     D     |                Jobbra                 |
 |     Q     |   Rakodó<br/>elindítása/leállítása    |
+|     E     |       Rakodó<br/>manuális nézet       |
+|     F     |      Rakodó<br/>előre irányítása      |
+|     G     |      Rakodó<br/>hátra irányítása      |
 |     R     | Konzolra kiíratás<br/> az app adatait |
 |   Shift   |                Felfele                |
 |   Space   |                Lefele                 |
