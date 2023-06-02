@@ -1,4 +1,4 @@
-const registerUser = function (obj, callback) {
+const validation = function (obj, callback) {
     if (obj.username === undefined || obj.password === undefined) {
         return callback(Error('Username or password missing.'));
     }
@@ -15,6 +15,6 @@ const registerUser = function (obj, callback) {
     return callback(null, 'Successful');
 }
 
-module.exports = registerUser;
+module.exports = validation;
 
 

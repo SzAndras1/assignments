@@ -22,4 +22,26 @@ const insert = function (collection, obj) {
         });
 }
 
-module.exports = insert;
+const findOne = function (collection, obj, callback) {
+    MongoClient.connect(url, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    })
+        .then((db) => {
+            const dbo = db.db('semesterproject');
+            return dbo.collection(collection).findOne(obj, {
+                useUnifiedTopology: true,
+                useNewUrlParser: true,
+            }).then((coll) => {
+                callback(null, coll);
+            }).catch(err => {
+                callback(err);
+                console.log(`DB Connection Error: ${err.message}`);
+            }).finally(() => {
+                console.log('Close DB');
+                db.close();
+            })
+        });
+}
+
+module.exports = {insert, findOne};
