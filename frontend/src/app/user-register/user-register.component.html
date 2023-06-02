@@ -27,3 +27,10 @@
     <button mat-button color="warn" type="submit" [disabled]="registerForm.status === 'INVALID'">Submit</button>
   </p>
 </form>
+<dialog #myDialog>
+  <div>Szevasztok!</div>
+  <button mat-button (click)="myDialog.close();" color="accent">Close</button>
+</dialog>
+<button mat-button (click)="myDialog.showModal();" color="accent">Open</button>
+<!--TODO: Modal-on kivüli kattintás bezárja,
+TODO: Megnézni hogy a form-ot validálja-e, ha kilépek belőle-->

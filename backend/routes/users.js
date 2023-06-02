@@ -8,10 +8,10 @@ const collection = 'user'
 router.post('/register', function(req, res, next){
     let toRegisterUser = { username: req.body['username'], password: req.body['password'] };
     if(toRegisterUser.username === undefined || toRegisterUser.password === undefined){
-        return res.status(400).end('username or password missing.');
+        return res.status(400).end('Username or password missing.');
     }
     if(toRegisterUser.username.length < 3 || toRegisterUser.password.length < 3){
-        return res.status(400).end('username or password length is less than 3 characters.');
+        return res.status(400).end('Username or password length is less than 3 characters.');
     }
     const regex = /^[a-zA-Z0-9]+$/
     if(!toRegisterUser.username.match(regex)){
