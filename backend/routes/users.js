@@ -7,22 +7,22 @@ router.use(express.json());
 const collection = 'user'
 
 /** POST register */
-router.post('/register', function (req, res, next) {
+router.post('/register', function (req, res) {
     let toRegisterUser = {username: req.body['username'], password: req.body['password']};
     validation(toRegisterUser, function (err, result) {
         if (err)
-            return res.status(400).end(err.stack);
+            return res.status(400).json({error: err.message});
         else {
             findBy(collection, toRegisterUser, 'username', (err, result) => {
                 if (err) {
-                    return res.status(400).end(`DB Connection Error: ${err.message}`);
+                    return res.status(400).json({error: `DB Connection Error: ${err.message}`});
                 } else {
                     if (result.length === 0) {
                         insert(collection, toRegisterUser);
                         console.log('Successful registration!');
                         return res.status(201).json(toRegisterUser);
                     } else {
-                        return res.status(400).end('This username already exists.');
+                        return res.status(400).json({error: 'This username already exists.'});
                     }
                 }
             });
@@ -31,21 +31,21 @@ router.post('/register', function (req, res, next) {
 });
 
 /** Post: login */
-router.post('/login', function (req, res, next) {
+router.post('/login', function (req, res) {
     let toLoginUser = {username: req.body['username'], password: req.body['password']};
     validation(toLoginUser, function (err, result) {
         if (err)
-            return res.status(400).end(err.stack);
+            return res.status(400).json({error: err.message});
     });
 
     findOne(collection, toLoginUser, (err, result) => {
         if (err) {
-            return res.status(400).end(`DB Connection Error: ${err.message}`);
+            return res.status(400).json({error: `DB Connection Error: ${err.message}`});
         } else {
             if (result === null) {
                 return res.status(201).json(toLoginUser);
             } else {
-                return res.status(400).end('Wrong credentials.');
+                return res.status(400).json({error: 'Wrong credentials.'});
             }
         }
     });
