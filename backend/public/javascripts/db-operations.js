@@ -96,7 +96,8 @@ const getEvery = function (collection, callback) {
 }
 
 const getObject = function (collection, id, callback) {
-    const _id = new ObjectId(id);
+    try {
+        const _id = new ObjectId(id);
     MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
@@ -113,6 +114,10 @@ const getObject = function (collection, id, callback) {
                     db.close();
                 })
         });
+    }
+    catch {
+        callback(Error('The id is not an ObjectId.'));
+    }
 }
 const findOne = function (collection, obj, callback) {
     MongoClient.connect(uri, {

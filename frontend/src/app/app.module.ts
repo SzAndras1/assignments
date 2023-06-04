@@ -10,23 +10,27 @@ import { UserLoginComponent } from './user-login/user-login.component';
 import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
+import { ResumeListComponent } from './resume-list/resume-list.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegisterComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    ResumeListComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        HttpClientModule,
-        MatCardModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    HttpClientModule,
+    MatCardModule,
+    MatTableModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

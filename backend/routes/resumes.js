@@ -77,7 +77,7 @@ router.put('', function (req, res) {
     return res.status(200).json(toUpdateResume);
 });
 
-/** DELETE: deletes resumé by it's name */
+/** DELETE: deletes specific resumé */
 router.delete('', function (req, res) {
     let toDeleteResume = {
         name: req.body['name'], email: req.body['email'],
