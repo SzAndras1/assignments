@@ -148,7 +148,7 @@ const updateObj = function (collection, obj) {
     let i = 0;
     for (const [key, value] of Object.entries(obj)) {
         if (i === 0) {
-            query[key] = value;
+            query[key] = new ObjectId(value);
         } else {
             newValues["$set"][key] = value;
         }
@@ -166,7 +166,7 @@ const updateObj = function (collection, obj) {
                 useNewUrlParser: true,
             }).then((coll) => {
                 //console.log('1 document updated');
-                console.log(coll);
+                //console.log(coll);
             }).catch(err => {
                 console.log(`DB Connection Error: ${err.message}`);
             }).finally(() => {

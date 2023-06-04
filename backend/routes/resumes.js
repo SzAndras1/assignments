@@ -5,7 +5,7 @@ const router = express.Router();
 router.use(express.json());
 const collection = 'resume'
 
-/** POST: initializes db with test resumes */
+/** POST: initializes db with test resumés */
 router.post('/initializedb', function (req, res) {
     const stringLiteral = 'test';
     const resumeArray = [];
@@ -20,11 +20,11 @@ router.post('/initializedb', function (req, res) {
     }
     insertMany(collection, resumeArray);
 
-    return res.status(201);
+    return res.status(201).json(resumeArray);
 });
 
-/** POST: publishes a resume */
-router.post('/add', function (req, res) {
+/** POST: publishes a resumé */
+router.post('', function (req, res) {
     let toInsertResume = {
         name: req.body['name'], email: req.body['email'],
         address: req.body['address'], text: req.body['text']
@@ -50,7 +50,7 @@ router.get('', function (req, res) {
     });
 });
 
-/** GET: gets specific resumé by its id*/
+/** GET: gets specific resumé by its id */
 router.get('/:id', function (req, res) {
     getObject(collection, req.params.id, function (err, result) {
         if (err)
@@ -69,7 +69,7 @@ router.get('/:id', function (req, res) {
 /** PUT: updates specific resumé */
 router.put('', function (req, res) {
     let toUpdateResume = {
-        name: req.body['name'], email: req.body['email'],
+        _id: req.body['_id'], name: req.body['name'], email: req.body['email'],
         address: req.body['address'], text: req.body['text']
     };
 
