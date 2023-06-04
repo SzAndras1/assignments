@@ -45,8 +45,16 @@ const insertMany = function (collection, array) {
         });
 }
 
-const findByUsername = function (collection, obj, callback) {
-    const query = {username: obj.username};
+const findBy = function (collection, obj, criteria, callback) {
+    const query = {}
+    if(!Array.isArray(criteria)){
+        query[criteria] = obj[criteria];
+    } else {
+        for (const filter of criteria) {
+            query[filter] = obj[filter];
+        }
+    }
+
     MongoClient.connect(url, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
@@ -147,4 +155,4 @@ const deleteObj = function (collection, obj) {
         });
 }
 
-module.exports = {insert, insertMany, findByUsername, findOne, updateObj, deleteObj};
+module.exports = {insert, insertMany, findBy, findOne, updateObj, deleteObj};

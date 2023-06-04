@@ -1,5 +1,5 @@
 const express = require('express');
-const {insert, findByUsername} = require("../public/javascripts/db-operations");
+const {insert, findBy} = require("../public/javascripts/db-operations");
 const validation = require("../public/services/userservice");
 const {findOne} = require("../public/javascripts/db-operations");
 const router = express.Router();
@@ -13,7 +13,7 @@ router.post('/register', function (req, res, next) {
         if (err)
             return res.status(400).end(err.stack);
         else {
-            findByUsername(collection, toRegisterUser, (err, result) => {
+            findBy(collection, toRegisterUser, 'username', (err, result) => {
                 if (err) {
                     return res.status(400).end(`DB Connection Error: ${err.message}`);
                 } else {
