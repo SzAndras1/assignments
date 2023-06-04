@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "./user";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable, Subject, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class UserService {
 
   private url: string = 'api/v1/user'
 
-  isLogged: boolean = false;
+  subjectIsLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient) { }
 
   /** POST: create a user if username is unique. Will return 400 if username already exists */

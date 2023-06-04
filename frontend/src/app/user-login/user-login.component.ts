@@ -50,7 +50,7 @@ export class UserLoginComponent implements OnInit {
           return throwError(err);
         }))
       .subscribe((toLoginUser: User): void => {
-        this.userService.isLogged = true;
+        this.userService.subjectIsLoggedIn.next(true);
         console.log(toLoginUser);
         this.router.navigate(['main']);
       });
