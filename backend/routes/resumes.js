@@ -1,6 +1,6 @@
 const express = require("express");
 const validation = require("../public/services/resumeservice");
-const {insert, insertMany, deleteObj, updateObj} = require("../public/javascripts/db-operations");
+const {insert, insertMany, deleteObj, updateObj, getEvery, getObject} = require("../public/javascripts/db-operations");
 const router = express.Router();
 router.use(express.json());
 const collection = 'resume'
@@ -23,7 +23,7 @@ router.post('/initializedb', function (req, res) {
     return res.status(201);
 });
 
-/** POST: publish a resume */
+/** POST: publishes a resume */
 router.post('/add', function (req, res) {
     let toInsertResume = {
         name: req.body['name'], email: req.body['email'],
@@ -40,6 +40,33 @@ router.post('/add', function (req, res) {
     });
 });
 
+/** GET: gets every resumé */
+router.get('', function (req, res) {
+    getEvery(collection, function (err, result) {
+        if (err)
+            return res.status(400).json({error: err.message});
+        else
+            return res.status(200).json(result);
+    });
+});
+
+/** GET: gets specific resumé by its id*/
+router.get('/:id', function (req, res) {
+    getObject(collection, req.params.id, function (err, result) {
+        if (err)
+            return res.status(400).json({error: err.message});
+        else {
+            if (result === null) {
+                console.log(result);
+                return res.status(400).json({error: 'No resumé found'});
+            } else {
+                return res.status(201).json(result);
+            }
+        }
+    });
+});
+
+/** PUT: updates specific resumé */
 router.put('', function (req, res) {
     let toUpdateResume = {
         name: req.body['name'], email: req.body['email'],
@@ -50,6 +77,7 @@ router.put('', function (req, res) {
     return res.status(200).json(toUpdateResume);
 });
 
+/** DELETE: deletes resumé by it's name */
 router.delete('', function (req, res) {
     let toDeleteResume = {
         name: req.body['name'], email: req.body['email'],

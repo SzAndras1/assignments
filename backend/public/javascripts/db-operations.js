@@ -1,7 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://127.0.0.1:27017/';
+const ObjectId = require('mongodb').ObjectId;
+const uri = 'mongodb://127.0.0.1:27017/';
 const insert = function (collection, obj) {
-    MongoClient.connect(url, {
+    MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
@@ -23,7 +24,7 @@ const insert = function (collection, obj) {
 }
 // Ordered option prevents additional documents from being inserted if one fails
 const insertMany = function (collection, array) {
-    MongoClient.connect(url, {
+    MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
@@ -47,7 +48,7 @@ const insertMany = function (collection, array) {
 
 const findBy = function (collection, obj, criteria, callback) {
     const query = {}
-    if(!Array.isArray(criteria)){
+    if (!Array.isArray(criteria)) {
         query[criteria] = obj[criteria];
     } else {
         for (const filter of criteria) {
@@ -55,7 +56,7 @@ const findBy = function (collection, obj, criteria, callback) {
         }
     }
 
-    MongoClient.connect(url, {
+    MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
@@ -75,9 +76,46 @@ const findBy = function (collection, obj, criteria, callback) {
             })
         });
 }
+const getEvery = function (collection, callback) {
+    MongoClient.connect(uri, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    })
+        .then((db) => {
+            const dbo = db.db('semesterproject');
+            return dbo.collection(collection).find().toArray()
+                .then((coll) => {
+                    callback(null, coll);
+                }).catch(err => {
+                    console.log(`DB Connection Error: ${err.message}`);
+                }).finally(() => {
+                    console.log('Close DB');
+                    db.close();
+                })
+        });
+}
 
+const getObject = function (collection, id, callback) {
+    const _id = new ObjectId(id);
+    MongoClient.connect(uri, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    })
+        .then((db) => {
+            const dbo = db.db('semesterproject');
+            return dbo.collection(collection).findOne(_id)
+                .then((coll) => {
+                    callback(null, coll);
+                }).catch(err => {
+                    console.log(`DB Connection Error: ${err.message}`);
+                }).finally(() => {
+                    console.log('Close DB');
+                    db.close();
+                })
+        });
+}
 const findOne = function (collection, obj, callback) {
-    MongoClient.connect(url, {
+    MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
@@ -98,7 +136,7 @@ const findOne = function (collection, obj, callback) {
         });
 }
 
-// I needed to get the name to have a comparison data to update the object
+// I needed to get the _id to have a comparison data to update the object
 const updateObj = function (collection, obj) {
     const query = {};
     const newValues = {$set: {}};
@@ -112,7 +150,7 @@ const updateObj = function (collection, obj) {
         i++;
     }
     console.log(newValues)
-    MongoClient.connect(url, {
+    MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
@@ -134,7 +172,7 @@ const updateObj = function (collection, obj) {
 }
 
 const deleteObj = function (collection, obj) {
-    MongoClient.connect(url, {
+    MongoClient.connect(uri, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
@@ -155,4 +193,4 @@ const deleteObj = function (collection, obj) {
         });
 }
 
-module.exports = {insert, insertMany, findBy, findOne, updateObj, deleteObj};
+module.exports = {insert, insertMany, findBy, findOne, getEvery, getObject, updateObj, deleteObj};
