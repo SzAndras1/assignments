@@ -39,7 +39,7 @@ export class UserLoginComponent {
               this.errorMessage = 'Backend server not running.';
               break;
             case 400:
-              this.errorMessage = 'This username already exists.';
+              this.errorMessage = 'Wrong credentials.';
               break;
             default:
               this.errorMessage = 'Unexpected error.'
@@ -47,8 +47,9 @@ export class UserLoginComponent {
           return throwError(err);
         }))
       .subscribe((toLoginUser: User): void => {
+        this.userService.isLogged = true;
         console.log(toLoginUser);
+        this.router.navigate(['main']);
       });
   }
-
 }

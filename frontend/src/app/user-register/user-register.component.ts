@@ -37,7 +37,7 @@ export class UserRegisterComponent {
               this.errorMessage = 'Backend server not running.';
               break;
             case 400:
-              this.errorMessage = 'Wrong credentials.';
+              this.errorMessage = 'This username is already exists.';
               break;
             default:
               this.errorMessage = 'Unexpected error.'
@@ -46,7 +46,7 @@ export class UserRegisterComponent {
         })
       ).subscribe((toRegisterUser: User): void => {
       console.log(toRegisterUser);
-      this.router.navigate(['login']), {state: {successfulRegistration: true}};
+      this.router.navigate(['login'], {state: {successfulRegistration: true}});
     });
   }
 }

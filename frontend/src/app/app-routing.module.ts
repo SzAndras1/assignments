@@ -6,7 +6,7 @@ import {UserLoginComponent} from "./user-login/user-login.component";
 const routes: Routes = [
   {path: 'register', component: UserRegisterComponent},
   {path: 'login', component: UserLoginComponent},
-  {path: '**', redirectTo: 'login' }
+  {path: '**', redirectTo: 'register' }
 ];
 
 @NgModule({

@@ -43,9 +43,9 @@ router.post('/login', function (req, res) {
             return res.status(400).json({error: `DB Connection Error: ${err.message}`});
         } else {
             if (result === null) {
-                return res.status(201).json(toLoginUser);
-            } else {
                 return res.status(400).json({error: 'Wrong credentials.'});
+            } else {
+                return res.status(200).json(toLoginUser);
             }
         }
     });

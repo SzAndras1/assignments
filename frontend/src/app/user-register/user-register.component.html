@@ -1,36 +1,42 @@
-<h1>Register</h1>
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Username</mat-label>
-      <input matInput formControlName="username">
-      <mat-error *ngIf="registerForm.controls['username'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="registerForm.controls['username'].hasError('minlength')
+<div style="display: flex; justify-content: center;">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <mat-card class="userForm">
+      <mat-card-title>Register</mat-card-title>
+      <mat-card-content>
+        <div>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username">
+              <mat-error *ngIf="registerForm.controls['username'].hasError('required')">You must enter a value
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls['username'].hasError('minlength')
       && !registerForm.controls['username'].hasError('pattern')">Must be at least 3 characters
-      </mat-error>
-      <mat-error *ngIf="registerForm.controls['username'].hasError('pattern')">Only characters and numbers</mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password">
-      <mat-error *ngIf="registerForm.controls['password'].hasError('required')">You must enter a value</mat-error>
-      <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">Must be at least 3 characters
-      </mat-error>
-    </mat-form-field>
-  </p>
-  <p *ngIf="error">
-    {{errorMessage}}
-  </p>
-  <p>
-    <button mat-button color="warn" type="submit" [disabled]="registerForm.status === 'INVALID'">Submit</button>
-  </p>
-</form>
-<dialog #myDialog>
-  <div>Szevasztok!</div>
-  <button mat-button (click)="myDialog.close();" color="accent">Close</button>
-</dialog>
-<button mat-button (click)="myDialog.showModal();" color="accent">Open</button>
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls['username'].hasError('pattern')">Only characters and numbers
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input type="password" matInput formControlName="password">
+              <mat-error *ngIf="registerForm.controls['password'].hasError('required')">You must enter a value
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls['password'].hasError('minlength')">Must be at least 3 characters
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p *ngIf="error">
+            {{errorMessage}}
+          </p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="warn" type="submit" [disabled]="registerForm.status === 'INVALID'">Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
 <!--TODO: Modal-on kivüli kattintás bezárja,
 TODO: Megnézni hogy a form-ot validálja-e, ha kilépek belőle-->

@@ -9,6 +9,8 @@ import {Observable, tap} from "rxjs";
 export class UserService {
 
   private url: string = 'api/v1/user'
+
+  isLogged: boolean = false;
   constructor(private http: HttpClient) { }
 
   /** POST: create a user if username is unique. Will return 400 if username already exists */

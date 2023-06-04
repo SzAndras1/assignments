@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { UserLoginComponent } from './user-login/user-login.component';
 import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -16,15 +17,16 @@ import {HttpClientModule} from "@angular/common/http";
     UserRegisterComponent,
     UserLoginComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        HttpClientModule,
+        MatCardModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
