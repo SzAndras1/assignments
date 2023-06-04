@@ -30,6 +30,7 @@ router.post('/register', function (req, res, next) {
     })
 });
 
+/** Post: login */
 router.post('/login', function (req, res, next) {
     let toLoginUser = {username: req.body['username'], password: req.body['password']};
     validation(toLoginUser, function (err, result) {
