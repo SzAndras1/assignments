@@ -11,18 +11,84 @@
     <th mat-header-cell *matHeaderCellDef>Address</th>
     <td mat-cell *matCellDef="let element"> {{element.address}} </td>
   </ng-container>
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef>Details</th>
+    <td mat-cell *matCellDef="let element" >
+      <button mat-raised-button color="accent" (click)="navigateToDetail(element['_id'])">Details</button>
+    </td>
+  </ng-container>
   <ng-container matColumnDef="update">
     <th mat-header-cell *matHeaderCellDef>Update</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button (click)="update(element)">Update</button>
+      <button mat-raised-button color="primary" (click)="formDialog.showModal(); bindToUpdate(element)">Update</button>
     </td>
   </ng-container>
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Delete</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button color="warn" (click)="delete(element)">Delete</button>
+      <button mat-raised-button color="warn" (click)="deleteDialog.showModal(); bindToRemove(element)">Delete</button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<button mat-raised-button color="warn" (click)="addFiveResume()" [disabled]="isInitializeApiCalledOnce">Initialize DB
+  with test resumés
+</button>
+<button mat-raised-button color="warn" (click)="setCreateOrUpdate(false); formDialog.showModal()">Add Resumé</button>
+
+<dialog #deleteDialog>
+  <div>
+    Would you like to delete this resumé?
+  </div>
+  <button mat-raised-button (click)="delete(); deleteDialog.close();" color="warn">Delete</button>
+  <button mat-raised-button (click)="deleteDialog.close();" color="accent">Close</button>
+</dialog>
+
+<dialog #formDialog>
+  <div>
+    <form method="dialog" [formGroup]="resumeForm" (ngSubmit)="createOrUpdate ? update() : create()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="resumeForm.controls['name'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="resumeForm.controls['name'].hasError('minlength')">Must be at least 4 characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="resumeForm.controls['email'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="resumeForm.controls['email'].hasError('minlength')">Must be at least 4 characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+        <mat-error *ngIf="resumeForm.controls['address'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="resumeForm.controls['address'].hasError('minlength')">Must be at least 4 characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Text</mat-label>
+        <input matInput formControlName="text">
+        <mat-error *ngIf="resumeForm.controls['text'].hasError('required')">You must enter a value</mat-error>
+        <mat-error *ngIf="resumeForm.controls['text'].hasError('minlength')">Must be at least 5 characters
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" [disabled]="resumeForm.status === 'INVALID'">Submit
+      </button>
+    </form>
+  </div>
+  <button *ngIf="createOrUpdate" mat-raised-button (click)="formDialog.close(); resetForm();" color="accent">Close</button>
+  <button *ngIf="!createOrUpdate" mat-raised-button (click)="formDialog.close()" color="accent">Close</button>
+</dialog>
+
+<dialog #deleteDialog>
+  <div>
+    Would you like to delete this resumé?
+  </div>
+  <button mat-raised-button (click)="delete(); deleteDialog.close();" color="warn">Delete</button>
+  <button mat-raised-button (click)="deleteDialog.close();" color="accent">Close</button>
+</dialog>

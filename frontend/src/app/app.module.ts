@@ -12,13 +12,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import { ResumeListComponent } from './resume-list/resume-list.component';
 import {MatTableModule} from "@angular/material/table";
+import { ResumeDetailsComponent } from './resume-details/resume-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegisterComponent,
     UserLoginComponent,
-    ResumeListComponent
+    ResumeListComponent,
+    ResumeDetailsComponent
   ],
   imports: [
     BrowserModule,

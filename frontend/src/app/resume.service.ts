@@ -12,9 +12,24 @@ export class ResumeService {
   constructor(private http: HttpClient) {
   }
 
+  /** POST: initializes db with test resumés */
+  initializeDb(): Observable<Array<Resume>> {
+    return this.http.post<Array<Resume>>(`${this.url}/initializedb`, null);
+  }
+
+  /** POST: publishes a resumé */
+  createResume(resume: Resume): Observable<Resume> {
+    return this.http.post<Resume>(this.url, resume);
+  }
+
   /** GET: gets every resumé */
   getResumes(): Observable<Array<Resume>> {
     return this.http.get<Array<Resume>>(this.url);
+  }
+
+  /** GET: gets specific resumé by its id */
+  getOneResumes(resumeId: string): Observable<Resume> {
+    return this.http.get<Resume>(`${this.url}/${resumeId}`);
   }
 
   /** PUT: updates specific resumé */
