@@ -22,6 +22,29 @@ const insert = function (collection, obj) {
         });
 }
 
+const findByUsername = function (collection, obj, callback) {
+    const query = {username: obj.username};
+    MongoClient.connect(url, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    })
+        .then((db) => {
+            const dbo = db.db('semesterproject');
+            return dbo.collection(collection).find(query, {
+                useUnifiedTopology: true,
+                useNewUrlParser: true,
+            }).toArray().then((coll) => {
+                callback(null, coll);
+            }).catch(err => {
+                callback(err);
+                console.log(`DB Connection Error: ${err.message}`);
+            }).finally(() => {
+                console.log('Close DB');
+                db.close();
+            })
+        });
+}
+
 const findOne = function (collection, obj, callback) {
     MongoClient.connect(url, {
         useUnifiedTopology: true,
@@ -44,4 +67,4 @@ const findOne = function (collection, obj, callback) {
         });
 }
 
-module.exports = {insert, findOne};
+module.exports = {insert, findByUsername, findOne};
