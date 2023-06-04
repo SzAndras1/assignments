@@ -33,10 +33,9 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button color="accent" type="submit" [disabled]="registerForm.status === 'INVALID'">Submit</button>
+        <button mat-raised-button color="accent" type="submit" [disabled]="registerForm.status === 'INVALID'">Submit</button>
+        <button mat-raised-button color="primary" (click)="navigateToLogin()">To Login</button>
       </mat-card-actions>
     </mat-card>
   </form>
 </div>
-<!--TODO: Modal-on kivüli kattintás bezárja,
-TODO: Megnézni hogy a form-ot validálja-e, ha kilépek belőle-->
