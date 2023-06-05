@@ -1,0 +1,8 @@
+.headrow {
+  background-color: royalblue;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: space-around;
+}

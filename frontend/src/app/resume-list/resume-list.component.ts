@@ -88,6 +88,8 @@ export class ResumeListComponent implements OnInit {
     this.resumeService.updateResume(this.resumeForm.value as Resume).subscribe(
       (updatedResume: Resume) => {
         console.log(updatedResume);
+        this.setCreateOrUpdate(false);
+        this.resetForm();
         this.getEvery();
       });
   }
