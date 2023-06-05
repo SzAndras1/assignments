@@ -41,7 +41,7 @@ Felhasználói felületen is van validáció.
 ![successfullogin](md-pictures/successfullogin.png "successfullogin")
 
 Sikeres regisztráció után megjelenik az előbbi komponens. Ha simán csak átnavigálnánk a `login` oldalra, akkor nem
-jelenik meg a sikeres bejelentkezés szöveg. Ezt a navigálás során az `extras.state` segítségével csináltam. A
+jelenik meg a sikeres beregisztrálás szöveg. Ezt a navigálás során az `extras.state` segítségével csináltam. A
 bejelentkezés kérést megnézi a backend, hogy tényleg ugyanazok a autentikációs adatok. Ha nem, akkor az alábbi szöveg
 jelenik meg.
 
