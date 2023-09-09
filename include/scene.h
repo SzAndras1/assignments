@@ -73,9 +73,11 @@ void draw_origin();
 void setBrightness(Scene *scene, float brightness);
 
 /**
- * Load skybox
+ * Load skybox.
+ *
+ * @param normal_vector Set normal vector for lighting.
  */
-void load_skybox(Scene scene);
+void load_skybox(Scene scene, bool normal_vector);
 
 /**
  * Load models for init_scene function

@@ -39,7 +39,7 @@ void init_scene(Scene *scene) {
     scene->black_duration_time = 0;
     scene->cart_path = -20.0f;
 
-    set_diffuse_values(scene,1.0f);
+    set_diffuse_values(scene, 1.0f);
 }
 
 void set_diffuse_values(Scene *scene, float value) {
@@ -68,8 +68,10 @@ void load_textures_init_scene(Scene *scene) {
     scene->text_texture = load_transparent_texture("assets/textures/heyyou.png");
 }
 
-void load_skybox(Scene scene) {
-    //glDisable(GL_LIGHTING);
+void load_skybox(Scene scene, bool normal_vector) {
+    if (!normal_vector) {
+        glDisable(GL_LIGHTING);
+    }
 
     glBindTexture(GL_TEXTURE_2D, scene.skybox_texture);
 
@@ -79,6 +81,9 @@ void load_skybox(Scene scene) {
     double u, v1, v2;
     int n_slices, n_stacks;
     double radius;
+    double nx1, ny1, nz1;
+    double nx2, ny2, nz2;
+    double normal_vector_length1, normal_vector_length2;
     int i, k;
     n_slices = 15;
     n_stacks = 15;
@@ -106,27 +111,29 @@ void load_skybox(Scene scene) {
             x2 = cos(theta) * cos(phi2);
             y2 = sin(theta) * cos(phi2);
             z2 = sin(phi2) - 0.25;
-            double nx1 = cos(theta) * cos(phi1);
-            double ny1 = sin(theta) * cos(phi1);
-            double nz1 = sin(phi1) - 0.25;
-            double nx2 = cos(theta) * cos(phi2);
-            double ny2 = sin(theta) * cos(phi2);
-            double nz2 = sin(phi2) - 0.25;
+            if (normal_vector) {
+                nx1 = cos(theta) * cos(phi1);
+                ny1 = sin(theta) * cos(phi1);
+                nz1 = sin(phi1) - 0.25;
+                nx2 = cos(theta) * cos(phi2);
+                ny2 = sin(theta) * cos(phi2);
+                nz2 = sin(phi2) - 0.25;
 
-            double length1 = sqrt(nx1 * nx1 + ny1 * ny1 + nz1 * nz1);
-            nx1 /= length1;
-            ny1 /= length1;
-            nz1 /= length1;
-            double length2 = sqrt(nx2 * nx2 + ny2 * ny2 + nz2 * nz2);
-            nx2 /= length2;
-            ny2 /= length2;
-            nz2 /= length2;
+                normal_vector_length1 = sqrt(nx1 * nx1 + ny1 * ny1 + nz1 * nz1);
+                nx1 /= normal_vector_length1;
+                ny1 /= normal_vector_length1;
+                nz1 /= normal_vector_length1;
+                normal_vector_length2 = sqrt(nx2 * nx2 + ny2 * ny2 + nz2 * nz2);
+                nx2 /= normal_vector_length2;
+                ny2 /= normal_vector_length2;
+                nz2 /= normal_vector_length2;
+                glNormal3d(-nx1, -ny1, -nz1);
+                glNormal3d(-nx2, -ny2, -nz2);
+            }
             glTexCoord2d(u, 1.0 - v1);
             glVertex3d(x1, y1, z1);
-            glNormal3d(-nx1,-ny1,-nz1);
             glTexCoord2d(u, 1.0 - v2);
             glVertex3d(x2, y2, z2);
-            glNormal3d(-nx2,-ny2,-nz2);
         }
     }
 
@@ -134,7 +141,9 @@ void load_skybox(Scene scene) {
 
     glPopMatrix();
 
-    //glEnable(GL_LIGHTING);
+    if (!normal_vector) {
+        glEnable(GL_LIGHTING);
+    }
 }
 
 void load_objects(Scene scene) {
@@ -280,7 +289,7 @@ void update_scene(Scene *scene, double time) {
 
     if (scene->teleportation_flag) {
         if (!scene->darkness_flag) {
-            set_diffuse_values(scene,0.02f);
+            set_diffuse_values(scene, 0.02f);
             scene->darkness_flag = true;
         }
     }
@@ -293,7 +302,7 @@ void update_scene(Scene *scene, double time) {
 void render_scene(const Scene *scene) {
     set_material(&(scene->material));
     set_lighting(scene);
-    load_skybox(*scene);
+    load_skybox(*scene, true);
     if (!scene->teleportation_flag) {
         load_objects(*scene);
         draw_water();
